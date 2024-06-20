@@ -844,7 +844,7 @@ TRY IT ... with or without CENTER CENTER
 
     .welcome-area .header-text p {
         text-align: center;
-        color: #fff;
+        color: #ffffff;
         font-size: 14px;
         line-height: 22px;
         margin-bottom: 40px;
@@ -1198,23 +1198,30 @@ contact
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: #000; /* Set background color to black */
+    background-color: #000;
 }
 
 .header-area .main-nav .logo {
-    color: #fa2c0d !important; /* Ensure the logo text is yellow */
+    color: #fa2c0d !important;
 }
 
 .header-area .main-nav .nav li a {
     color: #fff !important; /* Ensure the navigation links are white */
 }
 
+
+/* Target the dropdown items */
+.header-area .main-nav .nav .services-menu .dropdown-menu .dropdown-item {
+    color: #000000 !important; /* Change the color to your desired value */
+}
+
+
 .header-area .main-nav .nav li a:hover {
     color: #ffc400 !important; /* Add a hover effect */
 }
 
 .header-area .main-nav .nav li a.active {
-    color: #f55858 !important; /* Active list item color to yellow */
+    color: #f58282 !important; /* Active list item color to yellow */
 }
 
 .login-form,

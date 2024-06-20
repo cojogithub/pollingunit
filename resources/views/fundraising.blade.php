@@ -69,7 +69,7 @@
             <div class="row">
                 <div class="col-lg-7 col-md-12 col-sm-12"
                     data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
-                    <img src="{{ asset('images/g') }}" class="rounded img-fluid d-block mx-auto"
+                    <img src="{{ asset('images/fundraiser.jpg') }}" class="rounded img-fluid d-block mx-auto"
                         alt="App">
                 </div>
                 <div class="right-text col-lg-5 col-md-12 col-sm-12 mobile-top-fix">
