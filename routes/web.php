@@ -38,10 +38,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Route to display the logged in page
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    });
+
 
 // Ensure homepage or landing page route is defined
 Route::get('/landing', function () {

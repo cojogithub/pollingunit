@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/app.blade.php -->
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -8,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Polling Unit') }}</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -20,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('admin/vendor/font-awesome/css/font-awesome.min.css') }}">
     <!-- Custom Font Icons CSS -->
     <link rel="stylesheet" href="{{ asset('admin/css/font.css') }}">
-    <!-- theme stylesheet -->
+    <!-- Theme stylesheet -->
     <link rel="stylesheet" href="{{ asset('admin/css/style.default.css') }}" id="theme-stylesheet">
     <!-- Custom stylesheet -->
     <link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
