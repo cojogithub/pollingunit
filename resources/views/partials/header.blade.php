@@ -1,5 +1,4 @@
-<!-- resources/views/partials/header.blade.php -->
-<header class="header">
+<header class="header custom-header-margin">
     <nav class="navbar navbar-expand-lg">
         <div class="search-panel">
             <div class="search-inner d-flex align-items-center justify-content-center">

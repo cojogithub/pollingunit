@@ -36,23 +36,28 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Route to display the logged in page
+// Route to display the logged-in page
 Route::middleware(['auth'])->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    });
-
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 // Ensure homepage or landing page route is defined
 Route::get('/landing', function () {
     return view('landing');
 });
 
-// Ensure users are directered to the dashboard when logged in
+// Ensure users are directed to the dashboard when logged in
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('console.dashboard');
+    })->name('dashboard');
+
+    Route::get('/tables', function () {
+        return view('tables');
+    })->name('tables');
 });
 
-//Services section and nav links
+// Services section and nav links
 Route::get('/election-coordination', function () {
     return view('election-coordination');
 });
