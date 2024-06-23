@@ -3,21 +3,35 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\State;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Models\Password;
 
-class StateSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     public function run()
     {
-        $states = [
-            'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue', 'Borno', 'Cross River',
-            'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe', 'Imo', 'Jigawa', 'Kaduna', 'Kano', 'Katsina',
-            'Kebbi', 'Kogi', 'Kwara', 'Lagos', 'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau',
-            'Rivers', 'Sokoto', 'Taraba', 'Yobe', 'Zamfara', 'FCT'
-        ];
+        $user = User::create([
+            'firstname' => 'John',
+            'lastname' => 'Doe',
+            'email' => 'johndoe@example.com',
+            'phone' => '1234567890',
+            'bio' => 'This is a bio.',
+            'birthday' => '1980-01-01',
+            'twitter' => 'johndoe',
+            'facebook' => 'johndoe',
+            'google_plus' => 'johndoe',
+            'linkedin' => 'johndoe',
+            'instagram' => 'johndoe',
+            'company' => 'Example Company',
+        ]);
 
-        foreach ($states as $stateName) {
-            State::firstOrCreate(['name' => $stateName]);
-        }
+        Password::create([
+            'user_id' => $user->id,
+            'firstname' => 'John',
+            'lastname' => 'Doe',
+            'email' => 'johndoe@example.com',
+            'password' => Hash::make('password'), // Ensure bcrypt is used here
+        ]);
     }
 }
