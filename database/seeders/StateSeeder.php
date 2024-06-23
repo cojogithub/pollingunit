@@ -21,4 +21,3 @@ class StateSeeder extends Seeder
         }
     }
 }
-?>

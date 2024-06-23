@@ -171,6 +171,33 @@ p {
     color: #4a4a4a;
 }
 
+/* public/admin/css/custom.css */
+.footer-text {
+    color: black;
+}
+
+/* Add this if not already present */
+footer p {
+    color: black;
+}
+
+/* public/admin/css/custom.css */
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.container-fluid {
+    padding: 0;
+    width: 100%;
+}
+
+.card {
+    max-width: 500px;
+    margin: auto;
+}
+
+
 /*
 ---------------------------------------------
 global styles

@@ -19,11 +19,10 @@
             @auth
                 @php
                     $user = Auth::user();
-                    $formSubmission = $user->formSubmission;
-                    $userFullName = $formSubmission ? $formSubmission->firstname . ' ' . $formSubmission->lastname : $user->name;
+                    $userFullName = $user->firstname . ' ' . $user->lastname;
                 @endphp
                 <li class="nav-item">
-                    <a href="#" class="nav-link">{{ $userFullName }}</a>
+                    <a href="{{ url('/dashboard') }}" class="nav-link">{{ $userFullName }}</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link"

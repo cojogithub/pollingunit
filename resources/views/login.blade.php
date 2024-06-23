@@ -33,12 +33,11 @@
     <!-- ***** Header Area End ***** -->
 
     <div class="formbold-main-wrapper">
-        <div class="formbold-form-wrapper" style="background-color: red;">
+        <div class="formbold-form-wrapper">
             <!-- Logo -->
             <img src="{{ asset('storage/small-icon.ico') }}" alt="Logo" class="formbold-img">
 
             <h1 style="text-align:center;color:#ffffff">POLLING UNIT</h1>
-
 
             <form action="{{ route('login') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -79,7 +78,7 @@
                         <fieldset>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="remember" style="color: white;">
+                                <label class="form-check-label" for="remember">
                                     {{ __('Remember Me') }}
                                 </label>
                             </div>
@@ -174,12 +173,13 @@
             align-items: center;
             justify-content: center;
             padding: 48px;
+            width: 100%; /* Ensure full width */
         }
 
         .formbold-form-wrapper {
             margin: 0 auto;
-            width: 60%;
-            max-width: 100%;
+            width: 100%; /* Ensure full width */
+            max-width: 600px; /* Maximum width to ensure it doesn't stretch too much */
             background: red;
             padding: 40px;
         }
@@ -245,6 +245,11 @@
 
         .active-red {
             color: red !important;
+        }
+
+        /* Footer text color */
+        footer p {
+            color: black; /* Set the footer text color to black */
         }
     </style>
 </body>

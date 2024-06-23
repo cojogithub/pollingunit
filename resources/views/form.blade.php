@@ -33,7 +33,7 @@
     <!-- ***** Header Area End ***** -->
 
     <div class="formbold-main-wrapper">
-        <div class="formbold-form-wrapper" style="background-color: red;">
+        <div class="formbold-form-wrapper">
             <!-- Logo -->
             <img src="{{ asset('storage/small-icon.ico') }}" alt="Logo" class="formbold-img">
 
@@ -176,7 +176,7 @@
                     </div>
                     <div class="col-lg-6">
                         <fieldset>
-                            <p style="color: white;">Local Goverment</p>
+                            <p style="color: white;">Local Government</p>
                             <select name="lga" id="lga" class="formbold-form-input">
                                 <option value="" disabled selected>Select LGA</option>
                             </select>
@@ -212,13 +212,10 @@
                     </div>
                 </div>
 
-                <br>
-
                 <div class="form-group row">
                     <div class="col-lg-12 confirmation-container">
                         <fieldset>
-                            <p style="color: white;"></p>
-                            <label for="confirmation" class="confirmation-label">
+                            <label for="confirmation" class="confirmation-label" style="color: white;">
                                 <input type="radio" name="confirmation" id="confirmation" value="confirmed" {{ old('confirmation') == 'confirmed' ? 'checked' : '' }} />
                                 I confirm that the information provided is accurate and truthful.
                             </label>
@@ -229,8 +226,9 @@
                 <div class="form-group row">
                     <div class="col-lg-12">
                         <fieldset>
-                            <p style="color: white;"></p>
-                            <button class="formbold-btn">Submit</button>
+                            <button type="submit" class="main-button">
+                                {{ __('Register') }}
+                            </button>
                         </fieldset>
                     </div>
                 </div>
@@ -238,7 +236,44 @@
         </div>
     </div>
 
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>© <span id="currentYear"></span> <span style="color:rgb(232, 0, 0); font-weight:500;">POLLING UNIT</span> All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
+        var currentYear = new Date().getFullYear();
+        document.getElementById("currentYear").textContent = currentYear;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('section, .welcome-area');
+            const navLi = document.querySelectorAll('.nav li a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - sectionHeight / 3) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLi.forEach(a => {
+                    a.classList.remove('active');
+                    if (a.getAttribute('href').includes(current)) {
+                        a.classList.add('active');
+                    }
+                });
+            });
+        });
+
         $(document).ready(function() {
             function fetchOptions(url, target) {
                 $.ajax({
@@ -279,27 +314,25 @@
             $('#lga').change(function() {
                 let lgaId = $(this).val();
                 fetchOptions('/get-wards/' + lgaId, '#ward');
-                $('#polling_unit').empty().append('<option value="" disabled selected>Select</option>');
+                $('#polling_unit').empty().append('<option value="" disabled selected>Select Polling Unit</option>');
             });
 
             $('#ward').change(function() {
                 let wardId = $(this).val();
                 fetchOptions('/get-polling-units/' + wardId, '#polling_unit');
             });
-
-            // Add margin to about section when selected from the nav
-            var hash = window.location.hash;
-            if (hash === '#about') {
-                setTimeout(function() {
-                    var target = $(hash);
-                    target.css('margin-top', '2rem');
-                    $('html, body').animate({
-                        scrollTop: target.offset().top - $('.header-area').height()
-                    }, 1000);
-                }, 500); // Delay to ensure element is loaded
-            }
         });
     </script>
+
+    <script src="{{ asset('js/jquery-2.1.0.min.js') }}"></script>
+    <script src="{{ asset('js/popper.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/owl-carousel.js') }}"></script>
+    <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
+    <script src="{{ asset('js/waypoints.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('js/imgfix.min.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -314,43 +347,25 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .formbold-mb-3 {
-            margin-bottom: 15px;
-        }
-
         .formbold-main-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 48px;
+            width: 100%; /* Ensure full width */
         }
 
         .formbold-form-wrapper {
             margin: 0 auto;
-            width: 60%;
-            max-width: 100%;
-            background: white;
+            width: 100%; /* Ensure full width */
+            max-width: 600px; /* Maximum width to ensure it doesn't stretch too much */
+            background: red;
             padding: 40px;
         }
 
         .formbold-img {
             display: block;
             margin: 0 auto 45px;
-        }
-
-        .formbold-input-wrapp>div {
-            display: flex;
-            gap: 20px;
-        }
-
-        .formbold-input-flex {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 15px;
-        }
-
-        .formbold-input-flex>div {
-            width: 50%;
         }
 
         .formbold-form-input {
@@ -380,68 +395,7 @@
             box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
         }
 
-        .formbold-form-label {
-            color: #07074D;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 24px;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .formbold-form-file-flex {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .formbold-form-file-flex .formbold-form-label {
-            margin-bottom: 0;
-        }
-
-        .formbold-form-file {
-            font-size: 14px;
-            line-height: 24px;
-            color: #536387;
-        }
-
-        .formbold-form-file::-webkit-file-upload-button {
-            display: none;
-        }
-
-        .formbold-form-file:before {
-            content: 'Upload file';
-            display: inline-block;
-            background: #EEEEEE;
-            border: 0.5px solid #FBFBFB;
-            box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.25);
-            border-radius: 3px;
-            padding: 3px 12px;
-            outline: none;
-            white-space: nowrap;
-            -webkit-user-select: none;
-            cursor: pointer;
-            color: #637381;
-            font-weight: 500;
-            font-size: 12px;
-            line-height: 16px;
-            margin-right: 10px;
-        }
-
-        .confirmation-container {
-            text-align: center;
-        }
-
-        .confirmation-label {
-            color: #07074D;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 24px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .formbold-btn {
+        .main-button {
             font-size: 16px;
             border-radius: 5px;
             padding: 14px 25px;
@@ -456,12 +410,25 @@
             display: block;
         }
 
-        .formbold-btn:hover {
+        .main-button:hover {
             box-shadow: 0px 3px 8px rgba(103, 103, 103, 0.05);
         }
 
-        .formbold-w-50 {
-            width: 50%;
+        p {
+            color: white;
+        }
+
+        .form-check-label {
+            color: white;
+        }
+
+        .active-red {
+            color: red !important;
+        }
+
+        /* Footer text color */
+        footer p {
+            color: black; /* Set the footer text color to black */
         }
     </style>
 </body>

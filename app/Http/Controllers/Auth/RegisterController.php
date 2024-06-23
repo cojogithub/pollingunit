@@ -3,22 +3,31 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\User;
+use App\Models\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Models\User;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
-
-    protected $redirectTo = '/dashboard';
-
-    public function __construct()
+    /**
+     * Show the registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
     {
-        $this->middleware('guest');
+        $states = \App\Models\State::pluck('name', 'id');
+        return view('form', compact('states'));
     }
 
+    /**
+     * Validate the incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -29,20 +38,80 @@ class RegisterController extends Controller
         ]);
     }
 
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\Models\User
+     */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
+            'email' => $data['email'],
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+        ]);
+
+        Password::create([
+            'user_id' => $user->id,
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'name' => $data['firstname'] . ' ' . $data['lastname'], // Concatenate firstname and lastname
+            'password' => Hash::make($data['password']), // Ensure bcrypt is used here
         ]);
+
+        return $user;
     }
 
-    public function showRegistrationForm()
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     */
+    public function register(Request $request)
     {
-        $states = \App\Models\State::pluck('name', 'id');
-        return view('form', compact('states'));
+        $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+
+        event(new \Illuminate\Auth\Events\Registered($user));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
+
+    /**
+     * Get the guard to be used during registration.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return \Illuminate\Support\Facades\Auth::guard();
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        //
+    }
+
+    /**
+     * Get the post-registration redirect path.
+     *
+     * @return string
+     */
+    protected function redirectPath()
+    {
+        return '/dashboard';
     }
 }

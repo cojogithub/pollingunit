@@ -14,8 +14,8 @@
         <div class="container-fluid d-flex align-items-center justify-content-between">
             <div class="navbar-header">
                 <a href="{{ url('/') }}" class="navbar-brand">
-                    <div class="brand-text brand-big visible text-uppercase"><strong class="text-primary">Dark</strong><strong>Admin</strong></div>
-                    <div class="brand-text brand-sm"><strong class="text-primary">D</strong><strong>A</strong></div>
+                    <div class="brand-text brand-big visible text-uppercase"><strong class="text-primary">POLLING</strong><strong>UNIT</strong></div>
+                    <div class="brand-text brand-sm"><strong class="text-primary">P</strong><strong>U</strong></div>
                 </a>
                 <button class="sidebar-toggle"><i class="fa fa-long-arrow-left"></i></button>
             </div>
@@ -39,8 +39,23 @@
                 <div class="list-inline-item dropdown"><a id="languages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link language dropdown-toggle"><img src="{{ asset('img/flags/16/GB.png') }}" alt="English"><span class="d-none d-sm-inline-block">English</span></a>
                     <div aria-labelledby="languages" class="dropdown-menu"><a rel="nofollow" href="#" class="dropdown-item"> <img src="{{ asset('admin/img/flags/16/DE.png') }}" alt="English" class="mr-2"><span>German</span></a><a rel="nofollow" href="#" class="dropdown-item"> <img src="{{ asset('admin/img/flags/16/FR.png') }}" alt="English" class="mr-2"><span>French  </span></a></div>
                 </div>
-                <div class="list-inline-item logout"><a id="logout" href="{{ route('logout') }}" class="nav-link">Logout <i class="icon-logout"></i></a></div>
+                <div class="list-inline-item logout">
+                    <a id="logout" href="{{ route('logout') }}" class="nav-link"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout <i class="icon-logout"></i>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                </form>
+                </div>
             </div>
         </div>
     </nav>
 </header>
+
+<script>
+    document.getElementById('logout-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('logout-form').submit();
+    });
+</script>
