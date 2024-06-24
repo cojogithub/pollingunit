@@ -10,13 +10,12 @@
                     <div class="profile-avatar">
                         <img src="{{ asset($user->profile_image ?? 'admin/img/avatar-6.jpg') }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 100px; height: 100px;">
                     </div>
-                    <h3 class="profile-name">{{ $user->name }}</h3>
+                    <h3 class="profile-name">{{ $user->firstname }} {{ $user->lastname }}</h3>
                     <p class="profile-title">{{ $user->bio }}</p>
                 </div>
                 <div class="card-body">
                     <p><strong>Email:</strong> {{ $user->email }}</p>
                     <p><strong>Company:</strong> {{ $user->company }}</p>
-                    <p><strong>Birthday:</strong> {{ $user->birthday }}</p>
                     <p><strong>Phone:</strong> {{ $user->phone }}</p>
                     <p><strong>Social Links:</strong></p>
                     <ul class="list-unstyled social-links">

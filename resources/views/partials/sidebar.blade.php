@@ -11,17 +11,6 @@
     <ul class="list-unstyled">
         <ul id="exampledropdownDropdown" class="collapse list-unstyled">
             <li><a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}"> <i class="icon-user"></i> Profile</a></li>
-            <li>
-                <a href="#settingsDropdown" aria-expanded="false" data-toggle="collapse">
-                    <i class="icon-settings"></i> Settings
-                </a>
-                <ul id="settingsDropdown" class="collapse list-unstyled">
-                    <li><a href="{{ url('profile-settings') }}"> <i class="icon-computer"></i> Profile Settings</a></li>
-                    <li><a href="{{ url('account-settings') }}"> <i class="icon-page"></i> Account Settings</a></li>
-                    <li><a href="{{ url('user-activity') }}"> <i class="icon-website"></i> User Activity</a></li>
-                </ul>
-            </li>
-            <li><a href="#"> <i class="icon-light-bulb"></i> Support</a></li>
         </ul>
     </ul>
     <span class="heading">Main</span>
@@ -36,5 +25,19 @@
         <li><a href="#"> <i class="icon-settings"></i> Demo</a></li>
         <li><a href="#"> <i class="icon-writing-whiteboard"></i> Demo</a></li>
         <li><a href="#"> <i class="icon-chart"></i> Demo</a></li>
+    </ul>
+    <span class="heading">Settings</span>
+    <ul class="list-unstyled">
+        <li>
+            <a href="#settingsDropdown" aria-expanded="false" data-toggle="collapse">
+                <i class="icon-settings"></i> Settings
+            </a>
+            <ul id="settingsDropdown" class="collapse list-unstyled">
+                <li><a href="{{ url('profile-settings') }}"> <i class="icon-computer"></i> Profile Settings</a></li>
+                <li><a href="{{ url('account-settings') }}"> <i class="icon-page"></i> Account Settings</a></li>
+                <li><a href="{{ url('user-activity') }}"> <i class="icon-website"></i> User Activity</a></li>
+            </ul>
+        </li>
+        <li><a href="{{ url('support') }}"> <i class="icon-light-bulb"></i> Help and Support</a></li>
     </ul>
 </nav>

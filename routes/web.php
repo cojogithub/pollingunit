@@ -9,14 +9,15 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\SocialAuthController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FriendsController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\AccountSettingsController;
+use App\Http\Controllers\ProfileSettingsController;
+use App\Http\Controllers\ProfileController;
+
 
 // Route to display the landing page
 Route::get('/', [LandingController::class, 'showLandingPage'])->name('landing.page');
@@ -84,10 +85,11 @@ Route::middleware(['auth'])->group(function () {
         return view('console.forms');
     })->name('forms');
 
-    Route::get('/account-settings', [ProfileController::class, 'edit'])->name('account.settings');
+    Route::get('/profile-settings', [ProfileController::class, 'edit'])->name('profile.settings');
 
-    Route::get('account/settings', [AccountSettingsController::class, 'show'])->name('account.settings');
-    Route::put('account/settings', [AccountSettingsController::class, 'update'])->name('profile.update');
+    Route::get('profile/settings', [ProfileSettingsController::class, 'show'])->name('profile.settings');
+    Route::put('profile/settings', [ProfileSettingsController::class, 'update'])->name('profile.update');
+
 
 
     // Social Controllers
@@ -131,6 +133,15 @@ Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logou
 
 //Route to change last name once
 Route::middleware(['auth'])->group(function () {
-    Route::get('profile/settings', [AccountSettingsController::class, 'show'])->name('account.settings');
-    Route::put('profile/update', [AccountSettingsController::class, 'update'])->name('profile.update');
+    Route::get('profile/settings', [ProfileSettingsController::class, 'show'])->name('profile.settings');
+    Route::put('profile/update', [ProfileSettingsController::class, 'update'])->name('profile.update');
+});
+
+// Route to show the profile settings
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile/settings', [ProfileController::class, 'edit'])->name('profile.settings');
+    Route::put('/profile/settings', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Route to show the user's profile
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 });

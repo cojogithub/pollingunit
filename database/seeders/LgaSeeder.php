@@ -348,4 +348,3 @@ class LgaSeeder extends Seeder
         }
     }
 }
-?>

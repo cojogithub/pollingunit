@@ -3,7 +3,7 @@
 @section('content')
 <div class="container light-style flex-grow-1 container-p-y">
     <h4 class="font-weight-bold py-3 mb-4">
-        Account settings
+        Profile Settings
     </h4>
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -64,15 +64,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control mb-1" name="phone" value="{{ $user->phone }}">
+                                    <input type="text" class="form-control" name="phone" value="{{ old('phone', $user->phone) }}">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Bio</label>
-                                    <textarea class="form-control" name="bio" rows="5">{{ $user->bio }}</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Birthday</label>
-                                    <input type="date" class="form-control" name="birthday" value="{{ $user->birthday }}">
+                                    <textarea class="form-control" name="bio" rows="5">{{ old('bio', $user->bio) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -96,15 +92,11 @@
                             <div class="card-body pb-2" style="background-color: transparent; color: white;">
                                 <div class="form-group">
                                     <label class="form-label">Bio</label>
-                                    <textarea class="form-control" rows="5" name="bio">{{ $user->bio }}</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Birthday</label>
-                                    <input type="date" class="form-control" name="birthday" value="{{ $user->birthday }}">
+                                    <textarea class="form-control" rows="5" name="bio">{{ old('bio', $user->bio) }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" name="phone" value="{{ $user->phone }}">
+                                    <input type="text" class="form-control" name="phone" value="{{ old('phone', $user->phone) }}">
                                 </div>
                             </div>
                         </div>
@@ -112,23 +104,23 @@
                             <div class="card-body pb-2" style="background-color: transparent; color: white;">
                                 <div class="form-group">
                                     <label class="form-label">Twitter</label>
-                                    <input type="text" class="form-control" name="twitter" value="{{ $user->twitter }}">
+                                    <input type="text" class="form-control" name="twitter" value="{{ old('twitter', $user->twitter) }}">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Facebook</label>
-                                    <input type="text" class="form-control" name="facebook" value="{{ $user->facebook }}">
+                                    <input type="text" class="form-control" name="facebook" value="{{ old('facebook', $user->facebook) }}">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Google+</label>
-                                    <input type="text" class="form-control" name="google_plus" value="{{ $user->google_plus }}">
+                                    <input type="text" class="form-control" name="google_plus" value="{{ old('google_plus', $user->google_plus) }}">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">LinkedIn</label>
-                                    <input type="text" class="form-control" name="linkedin" value="{{ $user->linkedin }}">
+                                    <input type="text" class="form-control" name="linkedin" value="{{ old('linkedin', $user->linkedin) }}">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Instagram</label>
-                                    <input type="text" class="form-control" name="instagram" value="{{ $user->instagram }}">
+                                    <input type="text" class="form-control" name="instagram" value="{{ old('instagram', $user->instagram) }}">
                                 </div>
                             </div>
                         </div>

@@ -2,35 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements MustVerifyEmailContract
+class User extends Authenticatable
 {
     use Notifiable;
 
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'profile_image', 'bio', 'phone', 'twitter', 'facebook', 'google_plus', 'linkedin', 'instagram', 'company',
-        'idnumber', 'dob', 'gender', 'address', 'address2', 'position', 'confirmation'
+        'firstname', 'lastname', 'email', 'phone', 'bio', 'profile_image', // add other fields as needed
     ];
 
     protected $hidden = [
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
-
     public function friends()
     {
         return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 
     public function receivedMessages()
