@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             LgaSeeder::class,
             WardSeeder::class,
             PollingUnitSeeder::class,
-            UserSeeder::class, // Add this line
+            UserSeeder::class,
         ]);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/LocationController.php
 namespace App\Http\Controllers;
 
 use App\Models\SenatorialDistrict;

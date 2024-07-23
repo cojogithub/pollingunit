@@ -15,26 +15,26 @@ use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\ProfileSettingsController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\StateController;
+use App\Http\Controllers\LocationController;
 
 // Route to display the landing page
 Route::get('/', [LandingController::class, 'showLandingPage'])->name('landing.page');
 
 // Route to display the form
-Route::get('/form', [FormController::class, 'showForm'])->name('form.show');
+Route::get('/form', [StateController::class, 'showForm'])->name('form.show');
 
 // Route to handle form submission
-Route::post('/form-submit', [FormController::class, 'submitForm'])->name('form.submit');
+Route::post('/form-submit', [StateController::class, 'submitForm'])->name('form.submit');
 Route::post('/contact-us', [ContactUsController::class, 'submit'])->name('contact.submit');
 
 // Routes for dynamic form fields
-Route::get('/get-senatorial-districts/{state}', [FormController::class, 'getSenatorialDistricts']);
-Route::get('/get-federal-constituencies/{district}', [FormController::class, 'getFederalConstituencies']);
-Route::get('/get-lgas/{constituency}', [FormController::class, 'getLgas']);
-Route::get('/get-wards/{lga}', [FormController::class, 'getWards']);
-Route::get('/get-polling-units/{ward}', [FormController::class, 'getPollingUnits']);
+Route::get('/get-senatorial-districts/{state}', [LocationController::class, 'getSenatorialDistricts']);
+Route::get('/get-federal-constituencies/{district}', [LocationController::class, 'getFederalConstituencies']);
+Route::get('/get-lgas/{constituency}', [LocationController::class, 'getLGAs']);
+Route::get('/get-wards/{lga}', [LocationController::class, 'getWards']);
+Route::get('/get-polling-units/{ward}', [LocationController::class, 'getPollingUnits']);
 
 // Authentication Routes
 Auth::routes();
@@ -87,11 +87,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/profile-settings', [ProfileController::class, 'edit'])->name('profile.settings');
 
-    Route::get('profile/settings', [ProfileSettingsController::class, 'show'])->name('profile.settings');
-    Route::put('profile/settings', [ProfileSettingsController::class, 'update'])->name('profile.update');
-
-
-
     // Social Controllers
     Route::get('auth/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('social.auth');
     Route::get('auth/{provider}/callback', [SocialAuthController::class, 'handleProviderCallback']);
@@ -116,7 +111,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::resource('posts', PostsController::class);
@@ -129,12 +123,12 @@ Route::get('email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 // Logout Route
-Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-//Route to change last name once
+// Route to change last name once
 Route::middleware(['auth'])->group(function () {
-    Route::get('profile/settings', [ProfileSettingsController::class, 'show'])->name('profile.settings');
-    Route::put('profile/update', [ProfileSettingsController::class, 'update'])->name('profile.update');
+    Route::get('profile/settings', [ProfileController::class, 'edit'])->name('profile.settings');
+    Route::put('profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 // Route to show the profile settings
@@ -144,4 +138,32 @@ Route::middleware(['auth'])->group(function () {
 
     // Route to show the user's profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+});
+
+// Route for the political connection page
+Route::middleware(['auth'])->group(function () {
+    Route::get('/political-connection', function () {
+        return view('console.political-connection');
+    })->name('political.connection');
+});
+
+// Route for the photos page
+Route::middleware(['auth'])->group(function () {
+    Route::get('/photos', function () {
+        return view('console.photos');
+    })->name('photos');
+});
+
+// Route for the connections page
+Route::middleware(['auth'])->group(function () {
+    Route::get('/connections', function () {
+        return view('console.connections');
+    })->name('connections');
+});
+
+// Route for the groups page
+Route::middleware(['auth'])->group(function () {
+    Route::get('/groups', function () {
+        return view('console.groups');
+    })->name('groups');
 });

@@ -17,7 +17,7 @@ class StateSeeder extends Seeder
         ];
 
         foreach ($states as $stateName) {
-            State::firstOrCreate(['name' => $stateName]);
+            State::create(['name' => $stateName]);
         }
     }
 }

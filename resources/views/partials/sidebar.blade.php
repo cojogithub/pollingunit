@@ -10,7 +10,7 @@
     </a>
     <ul class="list-unstyled">
         <ul id="exampledropdownDropdown" class="collapse list-unstyled">
-            <li><a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}"> <i class="icon-user"></i> Profile</a></li>
+            <li><a href="{{ route('political.connection') }}"> <i class="icon-user"></i> Political Connection</a></li>
         </ul>
     </ul>
     <span class="heading">Main</span>

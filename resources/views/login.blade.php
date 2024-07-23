@@ -110,7 +110,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <p>© <span id="currentYear"></span> <span style="color:rgb(232, 0, 0); font-weight:500;">POLLING UNIT</span> All Rights Reserved.</p>
+                    <p>© <span id="currentYear"></span> <span style="color:rgb(255, 255, 255); font-weight:500;">POLLING UNIT</span> All Rights Reserved.</p>
                 </div>
             </div>
         </div>
@@ -166,6 +166,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
+            background: red;
         }
 
         .formbold-main-wrapper {
@@ -241,10 +242,6 @@
 
         .form-check-label {
             color: white;
-        }
-
-        .active-red {
-            color: red !important;
         }
 
         /* Footer text color */

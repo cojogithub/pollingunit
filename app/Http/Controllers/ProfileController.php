@@ -1,5 +1,6 @@
 <?php
 
+// ProfileController.php
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -8,10 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    // Show the profile page
     public function show($id = null)
     {
-        $user = $id ? User::find($id) : Auth::user();
+        $user = $id ? User::with('lga')->find($id) : Auth::user()->load('lga');
 
         if (!$user) {
             return redirect()->route('home')->with('error', 'User not found');
@@ -24,7 +24,6 @@ class ProfileController extends Controller
         return view('console.profile', compact('user', 'friends', 'posts', 'messages'));
     }
 
-    // Show the edit profile page
     public function edit()
     {
         $user = Auth::user();
@@ -36,7 +35,6 @@ class ProfileController extends Controller
         return view('console.profile-settings', compact('user'));
     }
 
-    // Update the profile
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -65,6 +63,6 @@ class ProfileController extends Controller
             $user->update(['profile_image' => $imagePath]);
         }
 
-        return redirect()->route('profile.settings')->with('success', 'Profile updated successfully.');
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
     }
 }

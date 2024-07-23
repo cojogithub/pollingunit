@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\State;
 use App\Models\SenatorialDistrict;
 use App\Models\FederalConstituency;
-use App\Models\LGA;
+use App\Models\Lga;
 use App\Models\Ward;
 use App\Models\PollingUnit;
 use App\Models\FormSubmission; // Ensure this is imported
@@ -61,7 +61,7 @@ class FormController extends Controller
 
     public function getLgas($federal_constituency_id)
     {
-        $lgas = LGA::where('federal_constituency_id', $federal_constituency_id)->pluck('name', 'id');
+        $lgas = Lga::where('federal_constituency_id', $federal_constituency_id)->pluck('name', 'id');
         return response()->json($lgas);
     }
 

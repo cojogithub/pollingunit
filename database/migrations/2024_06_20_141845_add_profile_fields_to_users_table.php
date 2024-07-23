@@ -20,8 +20,9 @@ class AddProfileFieldsToUsersTable extends Migration
             if (!Schema::hasColumn('users', 'bio')) {
                 $table->text('bio')->nullable();
             }
-            if (!Schema::hasColumn('users', 'birthday')) {
-                $table->date('birthday')->nullable();
+            // Remove the birthday field if it exists
+            if (Schema::hasColumn('users', 'birthday')) {
+                $table->dropColumn('birthday');
             }
             if (!Schema::hasColumn('users', 'country')) {
                 $table->string('country')->nullable();
@@ -64,8 +65,9 @@ class AddProfileFieldsToUsersTable extends Migration
             if (Schema::hasColumn('users', 'bio')) {
                 $table->dropColumn('bio');
             }
-            if (Schema::hasColumn('users', 'birthday')) {
-                $table->dropColumn('birthday');
+            // Restore the birthday field if needed
+            if (!Schema::hasColumn('users', 'birthday')) {
+                $table->date('birthday')->nullable();
             }
             if (Schema::hasColumn('users', 'country')) {
                 $table->dropColumn('country');

@@ -1,0 +1,217 @@
+body {
+    padding-top: -50px;
+    background-color: #ffffff;
+}
+
+nav {
+    background-image: linear-gradient(#9b0404, #2c0101 60%, #000000);
+    margin-bottom: -30px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand-icon {
+    height: 45px;
+    margin-right: 10px;
+}
+
+.brand-title {
+    color: #fff;
+    font-size: 30px; /* Increased font size by 5px */
+}
+
+.navbar-nav {
+    margin-left: auto; /* Align the nav items to the right */
+}
+
+.navbar-nav>li {
+    display: inline-block !important; /* Ensure li elements are inline */
+}
+
+.navbar {
+font-size: 15px !important; /* Increased font size by 5px */
+}
+
+.panel {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin-bottom: 20px;
+}
+
+.panel-heading {
+    background: yellowgreen;
+    color: #9b0404 !important;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 15px; /* Increased font size by 5px */
+}
+
+.panel-body {
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+    padding: 20px;
+    font-size: 18px; /* Increased font size by 5px */
+}
+
+.bubble {
+    background-color: rgb(251, 251, 251);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    min-height: 65px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+    margin-bottom: 20px;
+    font-size: 18px; /* Increased font size by 5px */
+}
+
+.bubble:before {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 15px 15px 15px 0;
+    border-color: transparent #ffffff transparent transparent;
+    display: block;
+    width: 0;
+    z-index: 0;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.bubble:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 14px 14px 14px 0;
+    border-color: transparent rgba(115, 115, 115, 0.9) transparent transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.comment-avatar img {
+    width: 100px !important;
+    margin: 5px;
+}
+
+.connections ul {
+    padding: 0;
+    text-align: center;
+}
+
+.connections li {
+    list-style: none;
+    padding: 0 5px;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.comments img {
+    width: 55px;
+}
+
+.thumbnail {
+    display: block;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: auto;
+}
+
+.groups img {
+    width: 125px;
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ffffff;
+    overflow: auto;
+}
+
+.members .member-row {
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.members img {
+    margin-bottom: 5px;
+}
+
+@media (min-width: 991px) {
+    .members p {
+        padding-top: 40px;
+    }
+}
+
+#profile-image {
+    margin-left: -75px;
+    padding-right: 75px;
+}
+
+#profile-info {
+    background: rgb(255, 255, 255);
+    margin-left: -1.5rem;
+    padding-bottom: .1rem;
+    border-radius: 10px;
+    padding: 2rem;
+    font-size: 25px;
+}
+
+#user-info {
+    background: rgb(255, 255, 255);
+    margin-left: -1.5rem;
+    padding-bottom: .1rem;
+    border-radius: 10px;
+    padding: 2rem;
+    font-size: 20px;
+    width: 125%;
+}
+
+#user-bio {
+    background: rgb(255, 255, 255);
+    margin-left: -1.5rem;
+    padding-bottom: .1rem;
+    border-radius: 10px;
+    padding: 2rem;
+    font-size: 20px;
+}
+
+.profile ul {
+    margin-top: 30px;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.profile li {
+    list-style: none;
+    line-height: 1.9em;
+    padding-top: 1rem;
+    font-size: 20px;
+}
+
+footer {
+    background-image: linear-gradient(#000000, #2c0101 40%, #9b0404);
+    color: #ffffff !important;
+    height: 40px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 30px;
+    font-size: 18px; /* Increased font size by 5px */
+}

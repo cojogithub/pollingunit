@@ -52,13 +52,16 @@ class SenatorialDistrictSeeder extends Seeder
 
         foreach ($statesWithDistricts as $stateName => $districts) {
             $state = State::where('name', $stateName)->first();
+
             if ($state) {
-                foreach ($districts as $district) {
+                foreach ($districts as $districtName) {
                     SenatorialDistrict::firstOrCreate([
-                        'name' => $district,
+                        'name' => $districtName,
                         'state_id' => $state->id
                     ]);
                 }
+            } else {
+                $this->command->warn("State '{$stateName}' not found. Skipping districts creation.");
             }
         }
     }
