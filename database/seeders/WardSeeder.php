@@ -109,6 +109,71 @@ class WardSeeder extends Seeder
             'Mubi South' => [
                 'Dirbishi/Gandira', 'Duvu/Chaba/Girburum', 'Gella', 'Gude', 'Kwaja', 'Lamorde', 'Mugulbu/Yadafa', 'Mujara', 'Nassarawo', 'Nduku'
             ],
+            'Numan' => [
+                'Bare', 'Bolki', 'Gamadio', 'Imburu', 'Kodomti', 'Numan I', 'Numan Ii', 'Numan Iii', 'Sabon Pegi', 'Vulpi'
+            ],
+            'Shelleng' => [
+                'Bakta', 'Bodwai', 'Gundo', 'Gwapopolok', 'Jumbul', 'Ketembere', 'Kiri', 'Libbo', 'Shelleng', 'Tallum'
+            ],
+            'Song' => [
+                'Dirma', 'Dumne', 'Gudu Mboi', 'Kilange Funa', 'Kilange Hirna', 'Sigire', 'Song Gari', 'Song Waje', 'Suktu', 'Waltandi', 'Zumo'
+            ],
+            'Toungo' => [
+                'Dawo I', 'Dawo II', 'Gumti', 'Kiri I', 'Kiri II', 'Kongin Baba I', 'Kongin Baba II', 'Toungo I', 'Toungo II', 'Toungo III'
+            ],
+            'Yola North' => [
+                'Ajiya', 'Alkalawa', 'Doubeli', 'Gwadabawa', 'Jambutu', 'Karewa', 'Limawa', 'Luggere', 'Nassarawo', 'Rumde','Yelwa'
+            ],
+            'Yola South' => [
+                'Adarawo', 'Bako', 'Bole Yolde Pate', 'Makama \'A\'', 'Makama \'B\'', 'Mbamba', 'Mbamoi', 'Namtari', 'Ngurore', 'Toungo', 'Yolde Kohi'
+            ],
+
+
+// 	AKWA IBOM  //
+            'Abak' => [
+                'Abak Urban 1', 'Abak Urban 11', 'Abak Urban 111', 'Abak Urban 1v', 'Afaha Obong 1', 'Afaha Obong 11', 'Midim 1', 'Midim 11', 'Otoro 1', 'Otoro 11', 'Otoro 111'
+            ],
+
+            'Eastern Obolo' => [
+                'Eastern Obolo 1', 'Eastern Obolo 11', 'Eastern Obolo 111', 'Eastern Obolo 1V', 'Eastern Obolo V', 'Eastern Obolo V1', 'Eastern Obolo V11', 'Eastern Obolo V111', 'Eastern Obolo IX', 'Eastern Obolo X'
+            ],
+            'Eket' => [
+                'Central 1', 'Central 11', 'Central 111', 'Central 1V', 'Central V', 'Okon 1', 'Okon 11', 'Urban 1', 'Urban 11', 'Urban 111', 'Urban 1V'
+            ],
+            'Esit Eket (Uquo)' => [
+                'Akpautong', 'Ebe Ekpi', 'Ebighi Okpono', 'Edor', 'Ekpene Obo', 'Etebi Akwata', 'Etebi Idung Assan', 'Ikpa', 'Ntak Inyang', 'Uquo'
+            ],
+            'Essien Udim' => [
+                'Adiasim', 'Afaha', 'Ekpeyong 1', 'Ekpeyong 11', 'Ikpe Annang', 'Odoro Ikot 1', 'Odoro Ikot 11', 'Okon', 'Ukana East', 'Ukana West 1', 'Ukana West 11'
+            ],
+            'Etim Ekpo' => [
+                'Etim Ekpo 1', 'Etim Ekpo 11', 'Etim Ekpo 111', 'Etim Ekpo 1V', 'Etim Ekpo V',  'Etim Ekpo V1', 'Etim Ekpo V11', 'Etim Ekpo V111', 'Etim Ekpo IX', 'Etim Ekpo X'
+            ],
+            'Etinan' => [
+                'Etinan Urban 1', 'Etinan Urban 11', 'Etinan Urban 111', 'Etinan Urban 1V', 'Etinan Urban V', 'Northern Iman 1', 'Northern Iman 11', 'Southern Iman 1', 'Southern Iman 11', 'Southern Iman 111', 'Southern Iman 1V'
+            ],
+            'Ibeno' => [
+                'Ibeno 1', 'Ibeno 11', 'Ibeno 111', 'Ibeno 1V', 'Ibeno V', 'Ibeno VI', 'Ibeno V11', 'Ibeno V111', 'Ibeno IX', 'Ibeno X'
+            ],
+            'Ibesikpo Asutan' => [
+                'Asutan 1', 'Asutan 11', 'Asutan 111', 'Asutan 1V', 'Asutan V', 'Ibesikpo 1', 'Ibesikpo 11', 'Ibesikpo 111', 'Ibesikpo 1V', 'Ibesikpo V'
+            ],
+            'Ibiono Ibom' => [
+                'Ibiono Central 1', 'Ibiono Central 11', 'Ibiono Eastern 1', 'Ibiono Eastern 11', 'Ibiono Northern 1', 'Ibiono Northern 11', 'Ibiono Southern 1', 'Ibiono Southern 11', 'Ibiono Western 1', 'Ibiono Western 11', 'Ikpanyav'
+            ],
+            'Ika' => [
+                'Achan Ika', 'Achan 11', 'Achan 111', 'Ito 1', 'Ito 11', 'Ito 111', 'Odoro 1', 'Odoro 11', 'Urban 1', 'Urban 11'
+            ],
+            'Ikono' => [
+                'Ediene 1', 'Ediene 11', 'Ikono Middle 1', 'Ikono Middle 11', 'Ikono Middle 111', 'Ikono Middle 1V', 'Ikono South', 'Itak', 'Ndiya/Ikot Idana', 'Nkwot 1', 'Nkwot 11'
+            ],
+            'Ikot Abasi' => [
+                'Edemaya 1', 'Edemaya 11', 'Edemaya 111', 'Ikpa Ibekwe 1', 'Ikpa Ibekwe 11', 'Ikpa Nung Asang 1', 'Ikpa Nung Asang 11', 'Ukpum Ete 1', 'Ukpum Ete 11', 'Ukpum Okon'
+            ],
+            'Ikot Ekpene' => [
+                'Ikot Ekpene 1', 'Ikot Ekpene 11', 'Ikot Ekpene 111', 'Ikot Ekpene 1V', 'Ikot Ekpene V', 'Ikot Ekpene V1', 'Ikot Ekpene V11', 'Ikot Ekpene V111', 'Ikot Ekpene IX', 'Ikot Ekpene X', 'Ikot Ekpene X1',
+            ],
+
 
 
 // EDO STATE //
