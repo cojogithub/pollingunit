@@ -173,6 +173,9 @@ class WardSeeder extends Seeder
             'Ikot Ekpene' => [
                 'Ikot Ekpene 1', 'Ikot Ekpene 11', 'Ikot Ekpene 111', 'Ikot Ekpene 1V', 'Ikot Ekpene V', 'Ikot Ekpene V1', 'Ikot Ekpene V11', 'Ikot Ekpene V111', 'Ikot Ekpene IX', 'Ikot Ekpene X', 'Ikot Ekpene X1',
             ],
+            'Ini' => [
+                'Ikono North 1', 'Ikono North 11', 'Ikono North 111', 'Ikpe 1', 'Ikpe 11', 'Itu Mbonuso', 'Iwerre', 'Nkari', 'Odoro Ukwok', 'Usuk Ukwok',
+            ],
 
 
 
