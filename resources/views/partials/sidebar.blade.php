@@ -16,15 +16,16 @@
     <span class="heading">Main</span>
     <ul class="list-unstyled">
         <li class="{{ Request::is('dashboard') ? 'active' : '' }}"><a href="{{ url('dashboard') }}"> <i class="icon-home"></i>Home</a></li>
-        <li class="{{ Request::is('tables') ? 'active' : '' }}"><a href="{{ url('tables') }}"> <i class="icon-grid"></i>Tables</a></li>
-        <li class="{{ Request::is('charts') ? 'active' : '' }}"><a href="{{ url('charts') }}"> <i class="fa fa-bar-chart"></i>Charts</a></li>
-        <li class="{{ Request::is('forms') ? 'active' : '' }}"><a href="{{ url('forms') }}"> <i class="icon-padnote"></i>Forms</a></li>
+        <li class="{{ Request::is('datainput') ? 'active' : '' }}"><a href="{{ url('datainput') }}"> <i class="icon-home"></i> Data Input</a></li>
+        <li><a href="#"> <i class="icon-writing-whiteboard"></i> Demo</a></li>
+        <li><a href="#"> <i class="icon-chart"></i> Demo</a></li>
     </ul>
     <span class="heading">Extras</span>
     <ul class="list-unstyled">
-        <li><a href="#"> <i class="icon-settings"></i> Demo</a></li>
-        <li><a href="#"> <i class="icon-writing-whiteboard"></i> Demo</a></li>
-        <li><a href="#"> <i class="icon-chart"></i> Demo</a></li>
+
+        <li class="{{ Request::is('tables') ? 'active' : '' }}"><a href="{{ url('tables') }}"> <i class="icon-grid"></i>Tables</a></li>
+        <li class="{{ Request::is('charts') ? 'active' : '' }}"><a href="{{ url('charts') }}"> <i class="fa fa-bar-chart"></i>Charts</a></li>
+        <li class="{{ Request::is('forms') ? 'active' : '' }}"><a href="{{ url('forms') }}"> <i class="icon-padnote"></i>Forms</a></li>
     </ul>
     <span class="heading">Settings</span>
     <ul class="list-unstyled">

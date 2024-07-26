@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataInputController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FormController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\PollingUnitController;
 
 // Route to display the landing page
 Route::get('/', [LandingController::class, 'showLandingPage'])->name('landing.page');
@@ -167,3 +169,10 @@ Route::middleware(['auth'])->group(function () {
         return view('console.groups');
     })->name('groups');
 });
+
+//Route to datainput
+Route::get('/datainput', [DataInputController::class, 'show'])->name('datainput');
+
+//Polling Unit Input
+Route::post('/datainput', [PollingUnitController::class, 'store'])->name('polling-unit.store');
+Route::get('/dashboard', [PollingUnitController::class, 'index'])->name('dashboard');

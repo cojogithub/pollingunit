@@ -176,6 +176,54 @@ class WardSeeder extends Seeder
             'Ini' => [
                 'Ikono North 1', 'Ikono North 11', 'Ikono North 111', 'Ikpe 1', 'Ikpe 11', 'Itu Mbonuso', 'Iwerre', 'Nkari', 'Odoro Ukwok', 'Usuk Ukwok',
             ],
+            'Itu' => [
+                'East Itam 1', 'East Itam 11', 'East Itam 111', 'East Itam 1V', 'East Itam V', 'Mbiase/Ayadehe', 'Oku Iboku', 'West Itam 1', 'West Itam 11', 'West Itam 111'
+            ],
+            'Mbo' => [
+                'Ebughu 1', 'Ebughu 11', 'Efiat 1', 'Efiat 11', 'Enwang 1', 'Enwang 11', 'Ibaka', 'Uda 1', 'Uda 11', 'Udesi',
+            ],
+            'Mkpat Enin' => [
+                'Ibiaku 1', 'Ibiaku 11', 'Ibiaku 111', 'Ikpa Ibom 1', 'Ikpa Ibom 11', 'Ikpa Ibom 111', 'Ikpa Ibom 1V', 'Ikpa Ikono 1', 'Ikpa Ikono 11', 'Ikpa Ikono 111', 'Ukpum Minya 1', 'Ukpum Minya 11', 'Ukpum Minya 111', 'Ukpum Minya 1V',
+            ],
+            'Nsit Atai' => [
+                'Eastern Nsit 1', 'Eastern Nsit 11', 'Eastern Nsit 111', 'Eastern Nsit 1V', 'Eastern Nsit V', 'Eastern Nsit V1', 'Eastern Nsit V11', 'Eastern Nsit V111', 'Eastern Nsit IX', 'Eastern Nsit X',
+            ],
+            'Nsit Ibom' => [
+                'Asang 1', 'Asang 11', 'Asang 111', 'Asang 1V', 'Asang V', 'Mbaiso 1', 'Mbaiso 11', 'Mbaiso 111', 'Mbaiso 1V', 'Mbaiso V',
+            ],
+            'Nsit Ubium' => [
+                'Ibiakpan Obotim 1', 'Ibiakpan/Obotim 11', 'Itreto', 'Ndiya', 'Ubium North 1', 'Ubium North 11', 'Ubium North 111', 'Ubium South 1', 'Ubium South 11', 'Ubium South 111',
+            ],
+            'Obot Akara' => [
+                'Ikot Abia 1', 'Ikot Abia 11', 'Ikot Abia 111', 'Nto Edino 1', 'Nto Edino 11', 'Nto Edino 111', 'Nto Edino 1V', 'Obot Akara 1', 'Obot Akara 11', 'Obot Akara 111',
+            ],
+            'Okobo' => [
+                'Akai/Mbukpo/Udung', 'Ekeya', 'Eweme 1', 'Eweme 11', 'Nung Atai/Ube 1', 'Nung Atai/Ube 11', 'Offi 1', 'Offi 11', 'Okopedi 1', 'Okopedi 11',
+            ],
+            'Onna' => [
+                'Awa 1', 'Awa 11', 'Awa 111', 'Awa 1V', 'Nung Idem 1', 'Nung Idem 11', 'Oniong East 1', 'Oniong East 11', 'Oniong East 111', 'Oniong West 1', 'Oniong West 11', 'Oniong West 111',
+            ],
+            'Oron' => [
+                'Oron Urban 1', 'Oron Urban 11', 'Oron Urban 111', 'Oron Urban 1V', 'Oron Urban V', 'Oron Urban V1', 'Oron Urban V11', 'Oron Urban V111', 'Oron Urban IX', 'Oron Urban X',
+            ],
+            'Oruk Anam' => [
+                'Abak Midim 1', 'Abak Midim 11', 'Abak Midim 111', 'Abak Midim 1V', 'Ekparakwa', 'Ibesit', 'Ibesit/Nung Ikot 1', 'Ibesit/Nung Ikot 11', 'Ikot Ibritam 1', 'Ikot Ibritam 11', 'Ndot/Ikot Okoro 1', 'Ndot/Ikot Okoro 11', 'Ndot/Ikot Okoro 111',
+            ],
+            'Udung Uko' => [
+                'Udung Uko 1', 'Udung Uko 11', 'Udung Uko 111', 'Udung Uko 1V', 'Udung Uko V', 'Udung Uko V1', 'Udung Uko V11', 'Udung Uko V111', 'Udung Uko IX', 'Udung Uko X',
+            ],
+            'Ukanafun' => [
+                'Northern Afaha 1', 'Northern Afaha 11', 'Northern Ukanafun 1', 'Northern Ukanafun 11', 'Southern Afaha Adat Ifang 1', 'Southern Afaha/Adat Ifang 11', 'Southern Afaha Adat Ifang 111', 'Southern Afaha Adat Ifang 1V', 'Southern Ukanafun 1', 'Southern Ukanafun 11', 'Ukanafun Urban',
+            ],
+            'Uruan' => [
+                'Central Uruan 1', 'Central Uruan 11', 'Central Uruan 111', 'Northern Uruan 1', 'Northern Uruan 11', 'Southern Uruan 1', 'Southern Uruan 11', 'Southern Uruan 111', 'Southern Uruan IV', 'Southern Uruan V', 'Southern Uruan V1',
+            ],
+            'Urue Offong Oruko' => [
+                'Oruko 1', 'Oruko 11', 'Oruko 111', 'Oruko 1V', 'Oruko V', 'Urue Offong 1', 'Urue Offong 11', 'Urue Offong 111', 'Urue Offong 1V', 'Urue Offong V',
+            ],
+            'Uyo' => [
+                'Etoi 1', 'Etoi 11', 'Ikono 1', 'Ikono 11', 'Offot 1', 'Offot 11', 'Oku 1', 'Oku 11', 'Uyo Urban 1', 'Uyo Urban 11', 'Uyo Urban 111',
+            ],
 
 
 
