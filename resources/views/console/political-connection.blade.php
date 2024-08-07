@@ -1,12 +1,17 @@
 @extends('layouts.dashboard')
 
 @section('styles')
-<!-- Include the styles specific to the political-connection.blade.php -->
 <link href="{{ asset('admin/css/social.css') }}" rel="stylesheet">
+<style>
+    .post-image {
+        max-width: 100%;
+        height: auto;
+        max-height: 400px;
+    }
+</style>
 @endsection
 
 @section('content')
-<!-- Red Nav Menu Specific to the Wall Page -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -15,10 +20,9 @@
                 <span class="brand-title">Political<span style="color:red">CONNECTION</span></span>
             </a>
         </div>
-
         <div id="navbar" class="navbar">
             <ul class="nav navbar">
-                <li><span style="color:red"><a href="{{ route('political.connection') }}">Wall</a></span></li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <li><span style="color:red"><a href="{{ route('posts.index') }}">Wall</a></span></li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <li><a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">Profile</a></li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <li><a href="{{ route('photos') }}">Photos</a></li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <li><a href="{{ route('connections') }}">Connections</a></li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -30,64 +34,84 @@
 
 <div class="container" style="padding-top: 70px;">
     <div class="row">
-        <!-- Post on WALL section -->
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Public Wall</h3>
                 </div>
                 <div class="panel-body">
-                    <form>
+                    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Write on the wall"></textarea>
+                            <textarea class="form-control" name="content" placeholder="Write on the wall" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                         <div class="pull-right"> Attach:
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default"><i class="fa fa-picture-o" aria-hidden="true"></i> Image</button>
-                                <button type="button" class="btn btn-default"><i class="fa fa-video-camera" aria-hidden="true"></i> Video</button>
+                                <input type="file" name="image" class="btn btn-default">
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- Add your post sections here, similar to the example -->
-            @foreach (range(1, 3) as $i)
+            @foreach ($posts as $post)
             <div class="panel panel-default post">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-2">
-                            <a class="post-avatar thumbnail" href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">
-                                <img src="{{ asset('admin/img/avatar.png') }}" alt="Avatar">
-                                <div class="text-center">User</div>
+                            <a class="post-avatar thumbnail" href="{{ route('profile.show', ['id' => $post->user->id]) }}">
+                                <img src="{{ asset($post->user->profile_image ? 'storage/' . $post->user->profile_image : 'admin/img/avatar.png') }}" alt="Avatar">
+                                <div class="text-center">{{ $post->user->firstname }}</div>
                             </a>
                             <div class="likes text-center"> 7 Likes</div>
                         </div>
                         <div class="col-sm-10">
                             <div class="bubble">
                                 <div class="pointer">
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                    @if ($post->image_path)
+                                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="Post Image" class="img-fluid post-image">
+                                    @endif
+                                    <p>{{ $post->content }}</p>
                                 </div>
                                 <div class="pointer-border"></div>
                             </div>
                             <p class="post-actions"><a href="#">Like</a> • <a href="#">Follow</a> • <a href="#">Share</a></p>
                             <div class="comment-form">
-                                <form class="form-inline">
+                                <form action="{{ route('comments.store', $post->id) }}" method="POST" class="form-inline">
+                                    @csrf
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="exampleInputName2" placeholder="Enter Comment">
+                                        <input type="text" name="content" class="form-control" placeholder="Enter Comment">
                                     </div>
                                     <button type="submit" class="btn btn-default">Add</button>
                                 </form>
                             </div>
                             <div class="comments">
-                                @foreach (range(1, 2) as $j)
+                                @foreach ($post->comments as $comment)
                                 <div class="comment">
-                                    <a class="comment-avatar pull-left" href="#"><img src="{{ asset('admin/img/avatar.png') }}" alt="Avatar"></a>
+                                    <a class="comment-avatar pull-left" href="#"><img src="{{ asset($comment->user->profile_image ? 'storage/' . $comment->user->profile_image : 'admin/img/avatar.png') }}" alt="Avatar"></a>
                                     <div class="comment-text">
-                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                        <p>{{ $comment->content }}</p>
                                     </div>
                                     <div class="clearfix"></div>
+                                    <div class="comment-form">
+                                        <form class="form-inline" action="{{ route('comments.store', $post->id) }}" method="POST">
+                                            @csrf
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="content" placeholder="Enter Comment">
+                                            </div>
+                                            <button type="submit" class="btn btn-default">Add</button>
+                                        </form>
+                                    </div>
+                                    @foreach ($comment->comments as $nestedComment)
+                                    <div class="comment">
+                                        <a class="comment-avatar pull-left" href="#"><img src="{{ asset($nestedComment->user->profile_image ? 'storage/' . $nestedComment->user->profile_image : 'admin/img/avatar.png') }}" alt="Avatar"></a>
+                                        <div class="comment-text">
+                                            <p>{{ $nestedComment->content }}</p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    @endforeach
                                 </div>
                                 @endforeach
                             </div>
@@ -97,7 +121,6 @@
             </div>
             @endforeach
         </div>
-        <!--col-md-8 end-->
 
         <div class="col-md-4">
             <div class="panel panel-default connections">
@@ -132,16 +155,11 @@
                 </div>
             </div>
         </div>
-        <!--col-md-4 end-->
     </div>
-    <!--row end-->
 </div>
-<!--container end-->
-
 @endsection
 
 @section('scripts')
-<!-- Include the necessary scripts for the wall.blade.php -->
 <script src="{{ asset('admin/js/jquery-1.12.4.min.js') }}"></script>
 <script src="{{ asset('admin/js/bootstrap.min.js') }}"></script>
 @endsection

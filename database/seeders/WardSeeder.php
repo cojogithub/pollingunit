@@ -65,7 +65,7 @@ class WardSeeder extends Seeder
             'Demsa' => [
                 'Bille', 'Borrong', 'Demsa', 'Dilli', 'Dong', 'Dwam', 'Gwamba', 'Kpasham', 'Mbula Kuli', 'Nassarawo Demsa'
             ],
-            'Fofore' => [
+            'Fufore' => [
                 'Beti', 'Farang', 'Fufore', 'Gurin', 'Karlahi', 'Mayo Ine', 'Pariya', 'Ribadu', 'Uki Tuki', 'Wuro Bokk', 'Yadim'
             ],
             'Ganye' => [

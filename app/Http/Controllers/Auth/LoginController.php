@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use App\Models\State;
 use App\Models\User;
-use App\Models\Password;
 
 class LoginController extends Controller
 {
@@ -25,22 +24,14 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         $states = State::pluck('name', 'id');
-        return view('login', compact('states'));
+        return view('auth.login', compact('states'));
     }
 
     protected function attemptLogin(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $credentials = $request->only('email', 'password');
 
-        if ($user) {
-            $passwordEntry = Password::where('user_id', $user->id)->first();
-            if ($passwordEntry && Hash::check($request->password, $passwordEntry->password)) {
-                $this->guard()->login($user, $request->filled('remember'));
-                return true;
-            }
-        }
-
-        return false;
+        return $this->guard()->attempt($credentials, $request->filled('remember'));
     }
 
     protected function authenticated(Request $request, $user)

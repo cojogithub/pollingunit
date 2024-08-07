@@ -41,13 +41,6 @@
 
             <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <!-- Hidden fields for dynamic selections -->
-                <input type="hidden" name="state_id" id="state_id" value="{{ old('state_id') }}">
-                <input type="hidden" name="senatorial_district_id" id="senatorial_district_id" value="{{ old('senatorial_district_id') }}">
-                <input type="hidden" name="federal_constituency_id" id="federal_constituency_id" value="{{ old('federal_constituency_id') }}">
-                <input type="hidden" name="lga_id" id="lga_id" value="{{ old('lga_id') }}">
-                <input type="hidden" name="ward_id" id="ward_id" value="{{ old('ward_id') }}">
-                <input type="hidden" name="polling_unit_id" id="polling_unit_id" value="{{ old('polling_unit_id') }}">
 
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
@@ -229,33 +222,12 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-lg-12">
-                        <fieldset>
-                            <p style="color: white;">Upload ID Photo</p>
-                            <input type="file" name="id_photo" id="id_photo" accept="image/*"
-                                class="formbold-form-input" required />
-                        </fieldset>
-                    </div>
+                <div class="form-group">
+                    <label for="profile_image" style="color: white;">Profile Image (optional)</label>
+                    <input type="file" class="form-control" name="profile_image" id="profile_image">
                 </div>
 
-                <div class="form-group row">
-                    <div class="col-lg-12">
-                        <fieldset>
-                            <p style="color: white;">Upload Profile Image</p>
-                            <input type="file" name="profile_image" id="profile_image" accept="image/*"
-                                class="formbold-form-input" required />
-                        </fieldset>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-lg-12">
-                        <fieldset>
-                            <button type="submit" class="formbold-submit-btn">Register</button>
-                        </fieldset>
-                    </div>
-                </div>
+                <button type="submit" class="main-button">Register</button>
             </form>
         </div>
     </div>
@@ -264,8 +236,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <p>© <span id="currentYear"></span> <span style="color:rgb(255, 0, 0); font-weight:500;">POLLING
-                            UNIT</span> All Rights Reserved.</p>
+                    <p>© <span id="currentYear"></span> <span style="color:rgb(255, 255, 255); font-weight:500;">POLLING UNIT</span> All Rights Reserved.</p>
                 </div>
             </div>
         </div>
@@ -275,98 +246,90 @@
         var currentYear = new Date().getFullYear();
         document.getElementById("currentYear").textContent = currentYear;
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('section, .welcome-area');
-            const navLi = document.querySelectorAll('.nav li a');
-
-            window.addEventListener('scroll', () => {
-                let current = '';
-
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (pageYOffset >= sectionTop - sectionHeight / 3) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLi.forEach(a => {
-                    a.classList.remove('active');
-                    if (a.getAttribute('href').includes(current)) {
-                        a.classList.add('active');
-                    }
-                });
-            });
-        });
-
-        $(document).ready(function() {
-            function fetchOptions(url, target) {
+        function fetchSenatorialDistricts() {
+            var stateId = document.getElementById("state").value;
+            if (stateId) {
                 $.ajax({
-                    url: url,
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        $(target).empty();
-                        $(target).append('<option value="" disabled selected>Select</option>');
-                        $.each(data, function(key, value) {
-                            $(target).append('<option value="' + key + '">' + value +
-                                '</option>');
+                    url: '/get-senatorial-districts/' + stateId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#senatorial_district').empty();
+                        $('#senatorial_district').append('<option value="" disabled selected>Select Senatorial District</option>');
+                        $.each(data, function (key, value) {
+                            $('#senatorial_district').append('<option value="' + key + '">' + value + '</option>');
                         });
-                    },
-                    error: function(xhr, status, error) {
-                        console.log("Error: " + status + " " + error);
                     }
                 });
             }
-
-            $('#state').change(function() {
-                let stateId = $(this).val();
-                fetchOptions('/get-senatorial-districts/' + stateId, '#senatorial_district');
-                $('#federal_constituency, #lga, #ward, #polling_unit').empty().append(
-                    '<option value="" disabled selected>Select</option>');
-            });
-
-            $('#senatorial_district').change(function() {
-                let districtId = $(this).val();
-                fetchOptions('/get-federal-constituencies/' + districtId, '#federal_constituency');
-                $('#lga, #ward, #polling_unit').empty().append(
-                    '<option value="" disabled selected>Select</option>');
-            });
-
-            $('#federal_constituency').change(function() {
-                let constituencyId = $(this).val();
-                fetchOptions('/get-lgas/' + constituencyId, '#lga');
-                $('#ward, #polling_unit').empty().append(
-                    '<option value="" disabled selected>Select Polling Unit</option>');
-            });
-
-            $('#lga').change(function() {
-                let lgaId = $(this).val();
-                fetchOptions('/get-wards/' + lgaId, '#ward');
-                $('#polling_unit').empty().append(
-                    '<option value="" disabled selected>Select Polling Unit</option>');
-            });
-
-            $('#ward').change(function() {
-                let wardId = $(this).val();
-                fetchOptions('/get-polling-units/' + wardId, '#polling_unit');
-            });
-        });
-
-        // Function to update hidden fields based on selected values
-        function updateHiddenFields() {
-            $('#state_id').val($('#state').val());
-            $('#senatorial_district_id').val($('#senatorial_district').val());
-            $('#federal_constituency_id').val($('#federal_constituency').val());
-            $('#lga_id').val($('#lga').val());
-            $('#ward_id').val($('#ward').val());
-            $('#polling_unit_id').val($('#polling_unit').val());
         }
 
-        // Call updateHiddenFields() whenever dropdowns change
-        $('#state, #senatorial_district, #federal_constituency, #lga, #ward, #polling_unit').change(function() {
-            updateHiddenFields();
-        });
+        function fetchFederalConstituencies() {
+            var districtId = document.getElementById("senatorial_district").value;
+            if (districtId) {
+                $.ajax({
+                    url: '/get-federal-constituencies/' + districtId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#federal_constituency').empty();
+                        $('#federal_constituency').append('<option value="" disabled selected>Select Federal Constituency</option>');
+                        $.each(data, function (key, value) {
+                            $('#federal_constituency').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                });
+            }
+        }
+
+        function fetchLGAs() {
+            var constituencyId = document.getElementById("federal_constituency").value;
+            if (constituencyId) {
+                $.ajax({
+                    url: '/get-lgas/' + constituencyId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#lga').empty();
+                        $('#lga').append('<option value="" disabled selected>Select LGA</option>');
+                        $.each(data, function (key, value) {
+                            $('#lga').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                });
+            }
+        }
+
+        function fetchWards() {
+            var lgaId = document.getElementById("lga").value;
+            if (lgaId) {
+                $.ajax({
+                    url: '/get-wards/' + lgaId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#ward').empty();
+                        $('#ward').append('<option value="" disabled selected>Select Ward</option>');
+                        $.each(data, function (key, value) {
+                            $('#ward').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                });
+            }
+        }
+
+        function fetchPollingUnits() {
+            var wardId = document.getElementById("ward").value;
+            if (wardId) {
+                $.ajax({
+                    url: '/get-polling-units/' + wardId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#polling_unit').empty();
+                        $('#polling_unit').append('<option value="" disabled selected>Select Polling Unit</option>');
+                        $.each(data, function (key, value) {
+                            $('#polling_unit').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                });
+            }
+        }
     </script>
 
     <script src="{{ asset('js/jquery-2.1.0.min.js') }}"></script>
@@ -388,8 +351,19 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            background: red;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: black; /* Change navbar background to black */
         }
 
         .formbold-main-wrapper {
@@ -398,15 +372,13 @@
             justify-content: center;
             padding: 48px;
             width: 100%;
-            /* Ensure full width */
+            flex: 1 0 auto;
         }
 
         .formbold-form-wrapper {
             margin: 0 auto;
             width: 100%;
-            /* Ensure full width */
             max-width: 600px;
-            /* Maximum width to ensure it doesn't stretch too much */
             background: red;
             padding: 40px;
         }
@@ -470,10 +442,16 @@
             color: white;
         }
 
-        /* Footer text color */
+        /* Footer background and text color */
+        footer {
+            background: red;
+            padding: 20px 0;
+            flex-shrink: 0;
+        }
+
         footer p {
-            color: black;
-            /* Set the footer text color to black */
+            color: white; /* Set the footer text color to white */
+            text-align: center;
         }
     </style>
 </body>

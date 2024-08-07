@@ -1,25 +1,23 @@
 <?php
 
-use App\Http\Controllers\DataInputController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\FormController;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DataInputController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\FriendsController;
-use App\Http\Controllers\PostsController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PollingUnitController;
+use App\Http\Controllers\CommentsController;
 
 // Route to display the landing page
 Route::get('/', [LandingController::class, 'showLandingPage'])->name('landing.page');
@@ -106,6 +104,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
     Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
 
+    Route::post('/posts/{post}/comments', [CommentsController::class, 'store'])->name('comments.store');
+
     Route::get('/messages', [MessagesController::class, 'index'])->name('messages.index');
     Route::post('/messages', [MessagesController::class, 'store'])->name('messages.store');
 
@@ -120,8 +120,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Email Verification Routes
-Route::get('email/verify', [VerifyEmailController::class, 'show'])->name('verification.notice');
-Route::get('email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
+Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 // Logout Route
@@ -144,9 +144,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Route for the political connection page
 Route::middleware(['auth'])->group(function () {
-    Route::get('/political-connection', function () {
-        return view('console.political-connection');
-    })->name('political.connection');
+    Route::get('/political-connection', [PostsController::class, 'index'])->name('political.connection');
 });
 
 // Route for the photos page

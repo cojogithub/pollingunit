@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('voter_id')->nullable();
             $table->string('nin_bvn')->nullable();
-            $table->string('state_name')->nullable(); // New column for state_name
+            $table->string('state_name')->nullable();
             $table->foreignId('state_id')->constrained()->onDelete('cascade');
             $table->foreignId('senatorial_district_id')->constrained()->onDelete('cascade');
             $table->foreignId('federal_constituency_id')->constrained()->onDelete('cascade');
