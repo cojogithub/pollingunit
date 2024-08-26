@@ -1,6 +1,28 @@
 @extends('layouts.dashboard')
 
+@section('styles')
+<!-- Include the styles specific to the profile.blade.php -->
+<link href="{{ asset('admin/css/social.css') }}" rel="stylesheet">
+<style>
+    #profile-image {
+        margin-right: 20px;
+    }
+</style>
+@endsection
+
 @section('content')
+<!-- Red Nav Menu Specific to the Profile Page -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img src="{{ asset('admin/img/slider-icon.png') }}" alt="Brand Icon" class="brand-icon">
+                <span class="brand-title">Political<span style="color:red">CONNECTION</span></span>
+            </a>
+        </div>
+    </div>
+</nav>
+<br><br>
 <div class="container">
     <div class="row">
         <div class="col-md-8 groups">

@@ -28,6 +28,18 @@
 <div class="container" style="padding-top: 70px;">
     <div class="row">
         <div class="col-md-8">
+            <!-- Display success/error messages -->
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @elseif(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <!-- Form to create a new post -->
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Public Wall</h3>
@@ -46,6 +58,7 @@
                 </div>
             </div>
 
+            <!-- Display posts and their comments -->
             @foreach ($posts as $post)
             <div class="panel panel-default post">
                 <div class="panel-body">
@@ -69,7 +82,7 @@
                             </div>
                             <p class="post-actions"><a href="#">Like</a> • <a href="#">Follow</a> • <a href="#">Share</a></p>
                             <div class="comment-form">
-                                <form action="{{ route('comments.store', ['postId' => $post->id]) }}" method="POST">
+                                <form action="{{ route('comments.store', ['post' => $post->id]) }}" method="POST">
                                     @csrf
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="content" placeholder="Enter Comment">

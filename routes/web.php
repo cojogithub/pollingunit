@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PoliticalConnectionController;
+use App\Http\Controllers\PollController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DataInputController;
@@ -18,6 +21,7 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PollingUnitController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\ActivityController;
 
 // Route to display the landing page
 Route::get('/', [LandingController::class, 'showLandingPage'])->name('landing.page');
@@ -69,9 +73,7 @@ Route::get('/fundraising', function () {
 
 // Ensure users are directed to the dashboard when logged in
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('console.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [PollingUnitController::class, 'index'])->name('dashboard');
 
     Route::get('/tables', function () {
         return view('console.tables');
@@ -94,7 +96,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Show profile
     Route::get('profile/{id?}', [ProfileController::class, 'show'])->name('profile.show');
-    Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
 
     // Friends, messages, and posts
     Route::get('/friends', [FriendsController::class, 'index'])->name('friends.index');
@@ -113,7 +114,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update')->middleware('throttle:6,1'); // Applying rate-limiting
 
     Route::resource('posts', PostsController::class);
     Route::resource('messages', MessagesController::class);
@@ -130,21 +131,21 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Route to change last name once
 Route::middleware(['auth'])->group(function () {
     Route::get('profile/settings', [ProfileController::class, 'edit'])->name('profile.settings');
-    Route::put('profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('profile/update', [ProfileController::class, 'update'])->name('profile.update.once');
 });
 
 // Route to show the profile settings
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile/settings', [ProfileController::class, 'edit'])->name('profile.settings');
-    Route::put('/profile/settings', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/settings', [ProfileController::class, 'edit'])->name('profile.settings.edit');
+    Route::put('/profile/settings', [ProfileController::class, 'update'])->name('profile.settings.update');
 
     // Route to show the user's profile
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show');
 });
 
 // Route for the political connection page
 Route::middleware(['auth'])->group(function () {
-    Route::get('/political-connection', [PostsController::class, 'index'])->name('political.connection');
+    Route::get('/political-connection', [PoliticalConnectionController::class, 'index'])->name('political.connection');
 });
 
 // Route for the photos page
@@ -168,9 +169,30 @@ Route::middleware(['auth'])->group(function () {
     })->name('groups');
 });
 
-//Route to datainput
+// Route to datainput
 Route::get('/datainput', [DataInputController::class, 'show'])->name('datainput');
 
-//Polling Unit Input
-Route::post('/datainput', [PollingUnitController::class, 'store'])->name('polling-unit.store');
-Route::get('/dashboard', [PollingUnitController::class, 'index'])->name('dashboard');
+// Polling Unit Input - Use the DataInputController for storing data
+Route::post('/polling-unit/store', [DataInputController::class, 'store'])->name('polling-unit.store');
+// User Poll Creation
+Route::get('/create-poll', [PollController::class, 'create'])->name('poll.create');
+Route::post('/create-poll', [PollController::class, 'store'])->name('poll.store');
+
+// Poll Voting Route
+Route::post('/polls/{poll}/vote', [PollController::class, 'vote'])->name('poll.vote');
+
+// Route to view the generated poll page
+Route::get('/polls/view/{fileName}', [PollController::class, 'viewPoll'])->name('poll.view');
+
+// Route to vote count
+Route::get('/polls/{id}/votes', [PollController::class, 'showVotes'])->name('poll.votes');
+
+// Route to manage polls
+Route::middleware(['auth'])->group(function () {
+    Route::get('/view-page', [PollController::class, 'manage'])->name('poll.manage');
+});
+
+// Route for displaying user activities
+Route::middleware(['auth'])->group(function () {
+    Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
+});

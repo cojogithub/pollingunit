@@ -10,10 +10,10 @@ class CreatePollingUnitDataTable extends Migration
     {
         Schema::create('polling_unit_data', function (Blueprint $table) {
             $table->id();
-            $table->integer('registered_voters');
-            $table->integer('accredited_voters');
-            $table->integer('void_votes');
-            $table->integer('election_result');
+            $table->integer('registered_voters')->nullable(); // Allow null values
+            $table->integer('accredited_voters')->nullable(); // Allow null values
+            $table->integer('void_votes')->nullable(); // Allow null values
+            $table->integer('election_result')->nullable(); // Allow null values
             $table->timestamps();
         });
     }

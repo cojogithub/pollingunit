@@ -15,8 +15,9 @@ class CreatePollingUnitsTable extends Migration
     {
         Schema::create('polling_units', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('ward_id');
-            $table->string('name');
+            $table->unsignedBigInteger('ward_id')->nullable();
+            $table->string('ward_name')->nullable(); // Make ward_name nullable
+            $table->string('name')->nullable(); // Make name nullable
             $table->timestamps();
         });
     }

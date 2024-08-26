@@ -9,8 +9,17 @@ class PollingUnit extends Model
 {
     use HasFactory;
 
-    public function ward()
-    {
-        return $this->belongsTo(Ward::class);
-    }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'ward_name',
+        'registered_voters',
+        'accredited_voters',
+        'void_votes',
+        'election_result'
+    ];
 }

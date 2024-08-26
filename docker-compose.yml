@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  asterisk:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.asterisk
+    container_name: asterisk
+    volumes:
+      - ./docker/asterisk:/etc/asterisk
+    ports:
+      - "5060:5060/udp"
+      - "10000-20000:10000-20000/udp"
+    networks:
+      - laravel
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8000:8000"
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge

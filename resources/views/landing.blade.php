@@ -51,7 +51,7 @@
                         <h1 style="color: #f8b409;"><strong>POLLING UNIT</strong></h1>
                         <h3 style="margin-top: -1.5rem;">Harnessing the power of technology</h3>
                         <p style="padding-top: .7rem;"><b>Revolutionizing poll monitoring across Africa and paving the way for free, fair, and transparent elections. Commited to integrity and accountability, POLLING UNIT is poised to become the go-to platform for electoral stakeholders dedicated to upholding democratic principles and ensuring the voice of the people is heard.</b></p>
-                        <a href="#about" class="main-button-slider">Learn  More</a>
+                        <a href="#about" class="main-button-slider">Learn More</a>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"
                         data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">

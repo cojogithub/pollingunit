@@ -15,19 +15,10 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
+            <div class="brand-container">
                 <img src="{{ asset('admin/img/slider-icon.png') }}" alt="Brand Icon" class="brand-icon">
-                <span class="brand-title">Political<span style="color:red">CONNECTION</span></span>
-            </a>
-        </div>
-        <div id="navbar" class="navbar">
-            <ul class="nav navbar">
-                <li><span style="color:red"><a href="{{ route('posts.index') }}">Wall</a></span></li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}">Profile</a></li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><a href="{{ route('photos') }}">Photos</a></li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><a href="{{ route('connections') }}">Connections</a></li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><a href="{{ route('groups') }}">Groups</a></li>
-            </ul>
+                <span class="brand-title">Political <span style="color:red">CONNECTION</span></span>
+            </div>
         </div>
     </div>
 </nav>
@@ -120,6 +111,44 @@
                 </div>
             </div>
             @endforeach
+
+            <!-- Display polls -->
+            @if(isset($polls) && count($polls) > 0)
+                @foreach ($polls as $poll)
+                <div class="panel panel-default post">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <a class="post-avatar thumbnail" href="#">
+                                    <img src="{{ asset('admin/img/avatar.png') }}" alt="Avatar">
+                                    <div class="text-center">{{ $poll->title }}</div>
+                                </a>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="bubble">
+                                    <div class="pointer">
+                                        <p><strong>{{ $poll->question }}</strong></p>
+                                        <form action="{{ route('poll.vote', $poll->id) }}" method="POST">
+                                            @csrf
+                                            @foreach ($poll->options as $option)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="option" id="option{{ $option->id }}" value="{{ $option->id }}">
+                                                <label class="form-check-label" for="option{{ $option->id }}">
+                                                    {{ $option->option }}
+                                                </label>
+                                            </div>
+                                            @endforeach
+                                            <button type="submit" class="btn btn-primary mt-2">Vote</button>
+                                        </form>
+                                    </div>
+                                    <div class="pointer-border"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            @endif
         </div>
 
         <div class="col-md-4">

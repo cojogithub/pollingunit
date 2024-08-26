@@ -9,6 +9,18 @@ class PollingUnitData extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'polling_unit_data';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'registered_voters',
         'accredited_voters',

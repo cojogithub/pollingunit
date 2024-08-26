@@ -18,12 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->text('bio')->nullable();
             $table->date('dob')->nullable();
-            $table->string('website')->nullable();
+            $table->string('job')->nullable();
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();
             $table->string('google_plus')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('instagram')->nullable();
+            $table->string('youtube')->nullable(); // YouTube field added here
             $table->string('company')->nullable();
             $table->string('jobposition')->nullable();
             $table->string('gender')->nullable();

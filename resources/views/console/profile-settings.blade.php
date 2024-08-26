@@ -7,17 +7,16 @@
     </h4>
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
+        @method('POST')
         <div class="card overflow-hidden" style="background-color: transparent; border: none;">
             <div class="row no-gutters row-bordered row-border-light">
                 <div class="col-md-3 pt-0">
                     <div class="list-group list-group-flush account-settings-links">
-                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General</a>
+                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">General Info</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Update Bio</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-social-links">Social Links</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-connections">Social Connections</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Info</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-social-links">Social links</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-connections">Connections</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-notifications">Notifications</a>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -66,10 +65,6 @@
                                     <label class="form-label">Phone</label>
                                     <input type="text" class="form-control" name="phone" value="{{ old('phone', $user->phone) }}">
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Bio</label>
-                                    <textarea class="form-control" name="bio" rows="5">{{ old('bio', $user->bio) }}</textarea>
-                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-change-password">
@@ -89,14 +84,10 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-info">
-                            <div class="card-body pb-2" style="background-color: transparent; color: white;">
+                            <div class="card-body pb-1" style="background-color: transparent; color: white;">
                                 <div class="form-group">
                                     <label class="form-label">Bio</label>
                                     <textarea class="form-control" rows="5" name="bio">{{ old('bio', $user->bio) }}</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" name="phone" value="{{ old('phone', $user->phone) }}">
                                 </div>
                             </div>
                         </div>
@@ -122,92 +113,27 @@
                                     <label class="form-label">Instagram</label>
                                     <input type="text" class="form-control" name="instagram" value="{{ old('instagram', $user->instagram) }}">
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-label">YouTube</label>
+                                    <input type="text" class="form-control" name="youtube" value="{{ old('youtube', $user->youtube) }}">
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-connections">
-                            <div class="card-body" style="background-color: transparent; color: white;">
+                            <div class="card-body" style="background-color: rgb(255, 255, 255); color: rgb(19, 102, 255);">
                                 <a href="{{ route('social.auth', ['provider' => 'twitter']) }}" class="btn btn-twitter">Connect to <strong>Twitter</strong></a>
                             </div>
                             <hr class="border-light m-0">
-                            <div class="card-body" style="background-color: transparent; color: white;">
+                            <div class="card-body" style="background-color: rgb(255, 255, 255); color: rgb(19, 102, 255);">
                                 <a href="{{ route('social.auth', ['provider' => 'google']) }}" class="btn btn-google">Connect to <strong>Google</strong></a>
                             </div>
                             <hr class="border-light m-0">
-                            <div class="card-body" style="background-color: transparent; color: white;">
+                            <div class="card-body" style="background-color: rgb(255, 255, 255); color: rgb(19, 102, 255);">
                                 <a href="{{ route('social.auth', ['provider' => 'facebook']) }}" class="btn btn-facebook">Connect to <strong>Facebook</strong></a>
                             </div>
                             <hr class="border-light m-0">
-                            <div class="card-body" style="background-color: transparent; color: white;">
+                            <div class="card-body" style="background-color: rgb(255, 255, 255); color: rgb(19, 102, 255);">
                                 <a href="{{ route('social.auth', ['provider' => 'instagram']) }}" class="btn btn-instagram">Connect to <strong>Instagram</strong></a>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="account-notifications">
-                            <div class="card-body pb-2" style="background-color: transparent; color: white;">
-                                <h6 class="mb-4">Activity</h6>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" name="notify_comments" {{ old('notify_comments', $user->notify_comments) ? 'checked' : '' }}>
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Email me when someone comments on my article</span>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" name="notify_answers" {{ old('notify_answers', $user->notify_answers) ? 'checked' : '' }}>
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Email me when someone answers on my forum thread</span>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" name="notify_follows" {{ old('notify_follows', $user->notify_follows) ? 'checked' : '' }}>
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Email me when someone follows me</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body pb-2" style="background-color: transparent; color: white;">
-                                <h6 class="mb-4">Application</h6>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" name="notify_news" {{ old('notify_news', $user->notify_news) ? 'checked' : '' }}>
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">News and announcements</span>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" name="notify_updates" {{ old('notify_updates', $user->notify_updates) ? 'checked' : '' }}>
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Weekly product updates</span>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="switcher">
-                                        <input type="checkbox" class="switcher-input" name="notify_digest" {{ old('notify_digest', $user->notify_digest) ? 'checked' : '' }}>
-                                        <span class="switcher-indicator">
-                                            <span class="switcher-yes"></span>
-                                            <span class="switcher-no"></span>
-                                        </span>
-                                        <span class="switcher-label">Weekly blog digest</span>
-                                    </label>
-                                </div>
                             </div>
                         </div>
                     </div>

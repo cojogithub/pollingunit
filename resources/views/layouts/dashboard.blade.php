@@ -1,233 +1,57 @@
-@extends('layouts.app')
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Polling Unit') }}</title>
 
-@section('content')
-<div class="page-header">
-    <div class="container-fluid">
-        <h2 class="h5 no-margin-bottom">Dashboard</h2>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('admin/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="{{ asset('admin/vendor/font-awesome/css/font-awesome.min.css') }}">
+    <!-- Custom Font Icons CSS -->
+    <link rel="stylesheet" href="{{ asset('admin/css/font.css') }}">
+    <!-- Theme stylesheet -->
+    <link rel="stylesheet" href="{{ asset('admin/css/style.default.css') }}" id="theme-stylesheet">
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('admin/img/favicon.ico') }}">
+
+    <!-- Additional styles for specific pages -->
+    @yield('styles')
+
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+</head>
+<body>
+    <div id="app">
+        @include('partials.header')
+
+        <main class="py-4 d-flex align-items-stretch">
+            @include('partials.sidebar')
+            <div class="page-content">
+                @yield('content')
+            </div>
+        </main>
     </div>
-</div>
 
-<section class="no-padding-top no-padding-bottom">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <div class="statistic-block block">
-                    <div class="progress-details d-flex align-items-end justify-content-between">
-                        <div class="title">
-                            <div class="icon"><i class="icon-user-1"></i></div><strong>My Connections</strong>
-                        </div>
-                        <div class="number dashtext-1">27</div>
-                    </div>
-                    <div class="progress progress-template">
-                        <div role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-1"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="statistic-block block">
-                    <div class="progress-details d-flex align-items-end justify-content-between">
-                        <div class="title">
-                            <div class="icon"><i class="icon-contract"></i></div><strong>Registered Voters</strong>
-                        </div>
-                        <div class="number dashtext-2">{{ $latestData->registered_voters ?? 'N/A' }}</div>
-                    </div>
-                    <div class="progress progress-template">
-                        <div role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-2"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="statistic-block block">
-                    <div class="progress-details d-flex align-items-end justify-content-between">
-                        <div class="title">
-                            <div class="icon"><i class="icon-paper-and-pencil"></i></div><strong>Contacts Made</strong>
-                        </div>
-                        <div class="number dashtext-3">140</div>
-                    </div>
-                    <div class="progress progress-template">
-                        <div role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-3"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="statistic-block block">
-                    <div class="progress-details d-flex align-items-end justify-content-between">
-                        <div class="title">
-                            <div class="icon"><i class="icon-writing-whiteboard"></i></div><strong>Prospects</strong>
-                        </div>
-                        <div class="number dashtext-4">41</div>
-                    </div>
-                    <div class="progress progress-template">
-                        <div role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-4"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <!-- JavaScript files -->
+    <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('admin/vendor/popper.js/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('admin/vendor/jquery.cookie/jquery.cookie.js') }}"></script>
+    <script src="{{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('admin/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('admin/js/charts-home.js') }}"></script>
+    <script src="{{ asset('admin/js/front.js') }}"></script>
 
-<section class="no-padding-bottom">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="block">
-                    <canvas id="registeredVotersChart"></canvas>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="block">
-                    <canvas id="accreditedVotersChart"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="block">
-                    <canvas id="electionResultsChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<footer class="footer">
-    <div class="footer__block block no-margin-bottom">
-        <div class="container-fluid text-center">
-            <p class="no-margin-bottom">2018 &copy; Your company. Download From <a target="_blank" href="https://templateshub.net">Templates Hub</a>.</p>
-        </div>
-    </div>
-</footer>
-@endsection
-
-@section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const registeredVotersData = {
-            2018: 500000,
-            2019: 600000,
-            2020: 650000,
-            2021: 700000,
-            2022: 750000
-        };
-
-        const accreditedVotersData = {
-            2018: 450000,
-            2019: 550000,
-            2020: 580000,
-            2021: 620000,
-            2022: 680000
-        };
-
-        const electionResultsData = {
-            'APC': {
-                2018: 240000,
-                2019: 290000,
-                2020: 310000,
-                2021: 340000,
-                2022: 370000
-            },
-            'PDP': {
-                2018: 210000,
-                2019: 250000,
-                2020: 270000,
-                2021: 290000,
-                2022: 310000
-            }
-        };
-
-        // Registered Voters Chart
-        const registeredVotersCtx = document.getElementById('registeredVotersChart').getContext('2d');
-        new Chart(registeredVotersCtx, {
-            type: 'line',
-            data: {
-                labels: Object.keys(registeredVotersData),
-                datasets: [{
-                    label: 'Registered Voters',
-                    data: Object.values(registeredVotersData),
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                title: {
-                    display: true,
-                    text: 'Yearly Registered Voters'
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        // Accredited Voters Chart
-        const accreditedVotersCtx = document.getElementById('accreditedVotersChart').getContext('2d');
-        new Chart(accreditedVotersCtx, {
-            type: 'line',
-            data: {
-                labels: Object.keys(accreditedVotersData),
-                datasets: [{
-                    label: 'Accredited Voters',
-                    data: Object.values(accreditedVotersData),
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                title: {
-                    display: true,
-                    text: 'Yearly Accredited Voters'
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        // Election Results Chart
-        const electionResultsCtx = document.getElementById('electionResultsChart').getContext('2d');
-        new Chart(electionResultsCtx, {
-            type: 'bar',
-            data: {
-                labels: Object.keys(electionResultsData['APC']),
-                datasets: [
-                    {
-                        label: 'APC',
-                        data: Object.values(electionResultsData['APC']),
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'PDP',
-                        data: Object.values(electionResultsData['PDP']),
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                title: {
-                    display: true,
-                    text: 'Yearly Election Results'
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    });
-</script>
-@endsection
+    <!-- Additional scripts for specific pages -->
+    @yield('scripts')
+</body>
+</html>

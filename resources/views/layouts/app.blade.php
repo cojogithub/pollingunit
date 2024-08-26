@@ -3,10 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Polling Unit') }}</title>
 
     <!-- Fonts -->
@@ -25,6 +22,9 @@
     <link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('admin/img/favicon.ico') }}">
+
+    <!-- Additional styles for specific pages -->
+    @yield('styles')
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -50,6 +50,8 @@
     <script src="{{ asset('admin/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('admin/js/charts-home.js') }}"></script>
     <script src="{{ asset('admin/js/front.js') }}"></script>
+
+    <!-- Additional scripts for specific pages -->
     @yield('scripts')
 </body>
 </html>

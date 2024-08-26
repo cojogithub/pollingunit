@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Are You?</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8000/css/bootstrap.min.css">
+    <style>
+        .container { margin-top: 50px; }
+        .poll-options { margin-top: 20px; }
+        .header-image { width: 100%; max-height: 400px; object-fit: cover; }
+    </style>
+</head>
+<body>
+    <div class="container">
+                    <img src="http://127.0.0.1:8000/storage/poll_images/7VjVPEpdmedkjeGSuF9U0PxWKWPn4XtrIG7wie1h.jpg" alt="Header Image" class="header-image">
+        
+        <h1>Who Are You?</h1>
+        <p>Who are you?</p>
+
+        <form action="http://127.0.0.1:8000/polls/2/vote" method="POST">
+            <input type="hidden" name="_token" value="d4gAlN9PI2CYSsCH7O65S7BKkiAkdDs1ySd81KNg" autocomplete="off">            <div class="poll-options">
+                                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="options[]" value="4" id="option4">
+                        <label class="form-check-label" for="option4">
+                            Asuzu
+                        </label>
+                    </div>
+                                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="options[]" value="5" id="option5">
+                        <label class="form-check-label" for="option5">
+                            Chris
+                        </label>
+                    </div>
+                                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="options[]" value="6" id="option6">
+                        <label class="form-check-label" for="option6">
+                            Kenny
+                        </label>
+                    </div>
+                                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="options[]" value="7" id="option7">
+                        <label class="form-check-label" for="option7">
+                            Emmy B
+                        </label>
+                    </div>
+                            </div>
+            <button type="submit" class="btn btn-primary mt-3">Vote</button>
+        </form>
+    </div>
+</body>
+</html>

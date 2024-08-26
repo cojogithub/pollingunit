@@ -10,28 +10,40 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('user', 'comments')->orderBy('created_at', 'desc')->get();
-        return view('console.political-connection', compact('posts'));
+        $posts = Post::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        return view('console.posts.index', compact('posts'));
+    }
+
+    public function create()
+    {
+        return view('console.posts.create');
     }
 
     public function store(Request $request)
     {
+        // Validate the request
         $request->validate([
-            'content' => 'required|string|max:1000',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'content' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        // Create a new post instance
         $post = new Post;
         $post->user_id = Auth::id();
         $post->content = $request->input('content');
 
+        // Handle the image upload
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
+            $image = $request->file('image');
+            // Store the image and get its path
+            $imagePath = $image->store('images', 'public');
             $post->image_path = $imagePath;
         }
 
+        // Save the post
         $post->save();
 
+        // Redirect with success message
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
 }

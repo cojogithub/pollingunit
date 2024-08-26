@@ -1,0 +1,24 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libncurses5-dev \
+    libssl-dev \
+    libxml2-dev \
+    uuid-dev \
+    wget \
+    curl \
+    vim \
+    asterisk
+
+# Set the working directory
+WORKDIR /etc/asterisk
+
+# Copy Asterisk configuration files (if any) from your Laravel project
+COPY asterisk /etc/asterisk
+
+# Expose ports for SIP (5060) and RTP (10000-20000)
+EXPOSE 5060/udp 10000-20000/udp
+
+# Start Asterisk on container startup
+CMD ["asterisk", "-vvvdddf", "-T", "-U", "asterisk"]

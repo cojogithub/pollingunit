@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\User; // Import the User model if not already imported
+use App\Models\User;
 use App\Models\State;
 use App\Models\SenatorialDistrict;
 use App\Models\FederalConstituency;
@@ -26,11 +26,11 @@ class UserSeeder extends Seeder
         $pollingUnit = PollingUnit::firstOrCreate(['name' => 'PRI SCH GATTA']);
 
         $user = new User();
-        $user->firstname = 'John';
-        $user->lastname = 'Doe';
-        $user->gender = 'male'; // Add gender
-        $user->email = 'johndoe@example.com';
-        $user->phone = '1234567890';
+        $user->firstname = 'Asouzu';
+        $user->lastname = 'Nwagwu';
+        $user->gender = 'male';
+        $user->email = 'asuzulu3@gmail.com';
+        $user->phone = '2405056225';
         $user->bio = 'This is a bio.';
         $user->dob = '1980-01-01';
         $user->address = '123 Main St';
@@ -45,10 +45,10 @@ class UserSeeder extends Seeder
         $user->password = Hash::make('password');
         $user->jobposition = 'Developer';
         $user->company = 'Example Company';
-        $user->twitter = 'johndoe';
-        $user->facebook = 'johndoe';
+        $user->twitter = '@asuzuthezulu';
+        $user->facebook = 'https://www.facebook.com/AsuzuDaZulu/';
         $user->linkedin = 'johndoe';
-        $user->instagram = 'johndoe';
+        $user->instagram = 'https://www.instagram.com/asuzuthezulu/';
         $user->email_verified_at = now();
         $user->remember_token = Str::random(10);
         $user->save();
