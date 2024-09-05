@@ -155,17 +155,14 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+<div class="form-group row">
                     <div class="col-lg-6">
                         <fieldset>
                             <p style="color: white;">State of Origin</p>
-                            <select class="formbold-form-input" name="state_id" id="state"
-                                onchange="fetchSenatorialDistricts()">
+                            <select class="formbold-form-input" name="state_id" id="state" onchange="fetchSenatorialDistricts()">
                                 <option value="" disabled selected>Select State</option>
                                 @foreach ($states as $id => $name)
-                                    <option value="{{ $id }}"
-                                        {{ old('state_id') == $id ? 'selected' : '' }}>{{ $name }}
-                                    </option>
+                                    <option value="{{ $id }}" {{ old('state_id') == $id ? 'selected' : '' }}>{{ $name }}</option>
                                 @endforeach
                             </select>
                         </fieldset>
@@ -173,20 +170,19 @@
                     <div class="col-lg-6">
                         <fieldset>
                             <p style="color: white;">Senatorial District</p>
-                            <select class="formbold-form-input" name="senatorial_district_id"
-                                id="senatorial_district" onchange="fetchFederalConstituencies()">
+                            <select class="formbold-form-input" name="senatorial_district_id" id="senatorial_district" onchange="fetchFederalConstituencies()">
                                 <option value="" disabled selected>Select Senatorial District</option>
                             </select>
                         </fieldset>
                     </div>
                 </div>
 
+                <!-- Federal Constituency and LGA fields -->
                 <div class="form-group row">
                     <div class="col-lg-6">
                         <fieldset>
                             <p style="color: white;">Federal Constituency</p>
-                            <select class="formbold-form-input" name="federal_constituency_id"
-                                id="federal_constituency" onchange="fetchLGAs()">
+                            <select class="formbold-form-input" name="federal_constituency_id" id="federal_constituency" onchange="fetchLGAs()">
                                 <option value="" disabled selected>Select Federal Constituency</option>
                             </select>
                         </fieldset>
@@ -194,20 +190,19 @@
                     <div class="col-lg-6">
                         <fieldset>
                             <p style="color: white;">Local Government Area (LGA)</p>
-                            <select class="formbold-form-input" name="lga_id" id="lga"
-                                onchange="fetchWards()">
+                            <select class="formbold-form-input" name="lga_id" id="lga" onchange="fetchWards()">
                                 <option value="" disabled selected>Select LGA</option>
                             </select>
                         </fieldset>
                     </div>
                 </div>
 
+                <!-- Ward and Polling Unit fields -->
                 <div class="form-group row">
                     <div class="col-lg-6">
                         <fieldset>
                             <p style="color: white;">Ward</p>
-                            <select class="formbold-form-input" name="ward_id" id="ward"
-                                onchange="fetchPollingUnits()">
+                            <select class="formbold-form-input" name="ward_id" id="ward" onchange="fetchPollingUnits()">
                                 <option value="" disabled selected>Select Ward</option>
                             </select>
                         </fieldset>
@@ -253,11 +248,13 @@
                     url: '/get-senatorial-districts/' + stateId,
                     type: 'GET',
                     success: function (data) {
-                        $('#senatorial_district').empty();
-                        $('#senatorial_district').append('<option value="" disabled selected>Select Senatorial District</option>');
+                        $('#senatorial_district').empty().append('<option value="" disabled selected>Select Senatorial District</option>');
                         $.each(data, function (key, value) {
                             $('#senatorial_district').append('<option value="' + key + '">' + value + '</option>');
                         });
+                    },
+                    error: function () {
+                        alert('Error fetching senatoral districts.');
                     }
                 });
             }
@@ -270,11 +267,13 @@
                     url: '/get-federal-constituencies/' + districtId,
                     type: 'GET',
                     success: function (data) {
-                        $('#federal_constituency').empty();
-                        $('#federal_constituency').append('<option value="" disabled selected>Select Federal Constituency</option>');
+                        $('#federal_constituency').empty().append('<option value="" disabled selected>Select Federal Constituency</option>');
                         $.each(data, function (key, value) {
                             $('#federal_constituency').append('<option value="' + key + '">' + value + '</option>');
                         });
+                    },
+                    error: function () {
+                        alert('Error fetching federal constituencies.');
                     }
                 });
             }
@@ -287,11 +286,13 @@
                     url: '/get-lgas/' + constituencyId,
                     type: 'GET',
                     success: function (data) {
-                        $('#lga').empty();
-                        $('#lga').append('<option value="" disabled selected>Select LGA</option>');
+                        $('#lga').empty().append('<option value="" disabled selected>Select LGA</option>');
                         $.each(data, function (key, value) {
                             $('#lga').append('<option value="' + key + '">' + value + '</option>');
                         });
+                    },
+                    error: function () {
+                        alert('Error fetching LGAs.');
                     }
                 });
             }
@@ -304,11 +305,13 @@
                     url: '/get-wards/' + lgaId,
                     type: 'GET',
                     success: function (data) {
-                        $('#ward').empty();
-                        $('#ward').append('<option value="" disabled selected>Select Ward</option>');
+                        $('#ward').empty().append('<option value="" disabled selected>Select Ward</option>');
                         $.each(data, function (key, value) {
                             $('#ward').append('<option value="' + key + '">' + value + '</option>');
                         });
+                    },
+                    error: function () {
+                        alert('Error fetching wards.');
                     }
                 });
             }
@@ -321,11 +324,13 @@
                     url: '/get-polling-units/' + wardId,
                     type: 'GET',
                     success: function (data) {
-                        $('#polling_unit').empty();
-                        $('#polling_unit').append('<option value="" disabled selected>Select Polling Unit</option>');
+                        $('#polling_unit').empty().append('<option value="" disabled selected>Select Polling Unit</option>');
                         $.each(data, function (key, value) {
                             $('#polling_unit').append('<option value="' + key + '">' + value + '</option>');
                         });
+                    },
+                    error: function () {
+                        alert('Error fetching polling units.');
                     }
                 });
             }
@@ -457,3 +462,4 @@
 </body>
 
 </html>
+

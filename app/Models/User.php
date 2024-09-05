@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function lga()
     {
-        return $this->belongsTo(LGA::class);
+        return $this->belongsTo(Lga::class);
     }
 
     public function ward()

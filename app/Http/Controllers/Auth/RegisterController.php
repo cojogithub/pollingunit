@@ -113,3 +113,4 @@ class RegisterController extends Controller
         return response()->json($pollingUnits);
     }
 }
+
