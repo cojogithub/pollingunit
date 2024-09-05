@@ -189,7 +189,7 @@
                     </div>
                     <div class="col-lg-6">
                         <fieldset>
-                            <p style="color: white;">Local Government Area (Lga)</p>
+                            <p style="color: white;">Local Government Area (LGA)</p>
                             <select class="formbold-form-input" name="lga_id" id="lga" onchange="fetchWards()">
                                 <option value="" disabled selected>Select LGA</option>
                             </select>
