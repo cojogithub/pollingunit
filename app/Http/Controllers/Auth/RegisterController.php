@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\State;
 use App\Models\SenatorialDistrict;
 use App\Models\FederalConstituency;
-use App\Models\LGA;
+use App\Models\Lga;
 use App\Models\Ward;
 use App\Models\PollingUnit;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -97,7 +97,7 @@ class RegisterController extends Controller
 
     public function getLgas($constituencyId)
     {
-        $lgas = LGA::where('federal_constituency_id', $constituencyId)->pluck('name', 'id');
+        $lgas = Lga::where('federal_constituency_id', $constituencyId)->pluck('name', 'id');
         return response()->json($lgas);
     }
 
@@ -113,4 +113,5 @@ class RegisterController extends Controller
         return response()->json($pollingUnits);
     }
 }
+
 

@@ -36,7 +36,7 @@ Route::post('/contact-us', [ContactUsController::class, 'submit'])->name('contac
 // Routes for dynamic form fields
 Route::get('/get-senatorial-districts/{state}', [LocationController::class, 'getSenatorialDistricts']);
 Route::get('/get-federal-constituencies/{district}', [LocationController::class, 'getFederalConstituencies']);
-Route::get('/get-lgas/{constituencyId}', [LocationController::class, 'getLGAs']);
+Route::get('/get-lgas/{constituencyId}', [LocationController::class, 'getLgas']);
 Route::get('/get-wards/{lga}', [LocationController::class, 'getWards']);
 Route::get('/get-polling-units/{ward}', [LocationController::class, 'getPollingUnits']);
 
@@ -65,7 +65,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('forms');
 
     Route::get('/profile-settings', [ProfileController::class, 'edit'])->name('profile.settings');
-    
+
     // Social Controllers
     Route::get('auth/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('social.auth');
     Route::get('auth/{provider}/callback', [SocialAuthController::class, 'handleProviderCallback']);
@@ -87,7 +87,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/messages', [MessagesController::class, 'store'])->name('messages.store');
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    
+
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update')->middleware('throttle:6,1'); // Applying rate-limiting
 
@@ -153,4 +153,5 @@ Route::get('/polling-unit-management', function () {
 Route::get('/fundraising', function () {
     return view('fundraising');
 });
+
 

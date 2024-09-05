@@ -177,19 +177,19 @@
                     </div>
                 </div>
 
-                <!-- Federal Constituency and LGA fields -->
+                <!-- Federal Constituency and Lga fields -->
                 <div class="form-group row">
                     <div class="col-lg-6">
                         <fieldset>
                             <p style="color: white;">Federal Constituency</p>
-                            <select class="formbold-form-input" name="federal_constituency_id" id="federal_constituency" onchange="fetchLGAs()">
+                            <select class="formbold-form-input" name="federal_constituency_id" id="federal_constituency" onchange="fetchLgas()">
                                 <option value="" disabled selected>Select Federal Constituency</option>
                             </select>
                         </fieldset>
                     </div>
                     <div class="col-lg-6">
                         <fieldset>
-                            <p style="color: white;">Local Government Area (LGA)</p>
+                            <p style="color: white;">Local Government Area (Lga)</p>
                             <select class="formbold-form-input" name="lga_id" id="lga" onchange="fetchWards()">
                                 <option value="" disabled selected>Select LGA</option>
                             </select>
@@ -279,7 +279,7 @@
             }
         }
 
-        function fetchLGAs() {
+        function fetchLgas() {
             var constituencyId = document.getElementById("federal_constituency").value;
             if (constituencyId) {
                 $.ajax({
@@ -462,4 +462,5 @@
 </body>
 
 </html>
+
 

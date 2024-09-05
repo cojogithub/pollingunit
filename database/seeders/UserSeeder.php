@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\State;
 use App\Models\SenatorialDistrict;
 use App\Models\FederalConstituency;
-use App\Models\LGA;
+use App\Models\Lga;
 use App\Models\Ward;
 use App\Models\PollingUnit;
 
@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         $state = State::firstOrCreate(['name' => 'Abia']);
         $senatorialDistrict = SenatorialDistrict::firstOrCreate(['name' => 'Abia Central']);
         $federalConstituency = FederalConstituency::firstOrCreate(['name' => 'Gire 1/Yola North/Yola South']);
-        $lga = LGA::firstOrCreate(['name' => 'Gire 1']);
+        $lga = Lga::firstOrCreate(['name' => 'Gire 1']);
         $ward = Ward::firstOrCreate(['name' => 'Dakri']);
         $pollingUnit = PollingUnit::firstOrCreate(['name' => 'PRI SCH GATTA']);
 
@@ -54,3 +54,4 @@ class UserSeeder extends Seeder
         $user->save();
     }
 }
+
