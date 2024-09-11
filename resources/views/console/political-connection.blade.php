@@ -6,7 +6,7 @@
     .post-image {
         max-width: 100%;
         height: auto;
-        max-height: 400px;
+        max-height: 400px; /* Limit the height for better presentation */
     }
 </style>
 @endsection
@@ -46,6 +46,7 @@
                 </div>
             </div>
 
+            <!-- Loop through posts -->
             @foreach ($posts as $post)
             <div class="panel panel-default post">
                 <div class="panel-body">
@@ -55,12 +56,12 @@
                                 <img src="{{ asset($post->user->profile_image ? 'storage/' . $post->user->profile_image : 'admin/img/avatar.png') }}" alt="Avatar">
                                 <div class="text-center">{{ $post->user->firstname }}</div>
                             </a>
-                            <div class="likes text-center"> 7 Likes</div>
                         </div>
                         <div class="col-sm-10">
                             <div class="bubble">
                                 <div class="pointer">
                                     @if ($post->image_path)
+                                    <!-- Display the post image -->
                                     <img src="{{ asset('storage/' . $post->image_path) }}" alt="Post Image" class="img-fluid post-image">
                                     @endif
                                     <p>{{ $post->content }}</p>
@@ -68,8 +69,10 @@
                                 <div class="pointer-border"></div>
                             </div>
                             <p class="post-actions"><a href="#">Like</a> • <a href="#">Follow</a> • <a href="#">Share</a></p>
+
+                            <!-- Comment form for each post -->
                             <div class="comment-form">
-                                <form action="{{ route('comments.store', $post->id) }}" method="POST" class="form-inline">
+                                <form action="{{ route('comments.store', ['post' => $post->id]) }}" method="POST" class="form-inline">
                                     @csrf
                                     <div class="form-group">
                                         <input type="text" name="content" class="form-control" placeholder="Enter Comment">
@@ -77,16 +80,22 @@
                                     <button type="submit" class="btn btn-default">Add</button>
                                 </form>
                             </div>
+
+                            <!-- Comments display -->
                             <div class="comments">
                                 @foreach ($post->comments as $comment)
                                 <div class="comment">
-                                    <a class="comment-avatar pull-left" href="#"><img src="{{ asset($comment->user->profile_image ? 'storage/' . $comment->user->profile_image : 'admin/img/avatar.png') }}" alt="Avatar"></a>
+                                    <a class="comment-avatar pull-left" href="#">
+                                        <img src="{{ asset($comment->user->profile_image ? 'storage/' . $comment->user->profile_image : 'admin/img/avatar.png') }}" alt="Avatar">
+                                    </a>
                                     <div class="comment-text">
                                         <p>{{ $comment->content }}</p>
                                     </div>
                                     <div class="clearfix"></div>
+
+                                    <!-- Nested comment form for each comment -->
                                     <div class="comment-form">
-                                        <form class="form-inline" action="{{ route('comments.store', $post->id) }}" method="POST">
+                                        <form action="{{ route('comments.store', ['post' => $post->id]) }}" method="POST" class="form-inline">
                                             @csrf
                                             <div class="form-group">
                                                 <input type="text" class="form-control" name="content" placeholder="Enter Comment">
@@ -94,9 +103,13 @@
                                             <button type="submit" class="btn btn-default">Add</button>
                                         </form>
                                     </div>
+
+                                    <!-- Nested comments display -->
                                     @foreach ($comment->comments as $nestedComment)
                                     <div class="comment">
-                                        <a class="comment-avatar pull-left" href="#"><img src="{{ asset($nestedComment->user->profile_image ? 'storage/' . $nestedComment->user->profile_image : 'admin/img/avatar.png') }}" alt="Avatar"></a>
+                                        <a class="comment-avatar pull-left" href="#">
+                                            <img src="{{ asset($nestedComment->user->profile_image ? 'storage/' . $nestedComment->user->profile_image : 'admin/img/avatar.png') }}" alt="Avatar">
+                                        </a>
                                         <div class="comment-text">
                                             <p>{{ $nestedComment->content }}</p>
                                         </div>

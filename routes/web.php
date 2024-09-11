@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PoliticalConnectionController;
 use App\Http\Controllers\PollController;
-use App\Http\Controllers\PostsController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DataInputController;
 use App\Http\Controllers\LandingController;
@@ -20,7 +20,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PollingUnitController;
-use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ActivityController;
 
 // Route to display the landing page
@@ -79,9 +79,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/friends/add', [FriendsController::class, 'addFriend'])->name('friends.add');
     Route::post('/friends/remove', [FriendsController::class, 'removeFriend'])->name('friends.remove');
 
-    Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
-    Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
-    Route::post('/posts/{post}/comments', [CommentsController::class, 'store'])->name('comments.store');
+    // Post routes
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+    // Comment routes
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
     Route::get('/messages', [MessagesController::class, 'index'])->name('messages.index');
     Route::post('/messages', [MessagesController::class, 'store'])->name('messages.store');
@@ -91,7 +96,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update')->middleware('throttle:6,1'); // Applying rate-limiting
 
-    Route::resource('posts', PostsController::class);
+    // Resource controllers for posts and messages
+    Route::resource('posts', PostController::class)->except(['index', 'create', 'store', 'show']);
     Route::resource('messages', MessagesController::class);
 
     // Route for the political connection page
