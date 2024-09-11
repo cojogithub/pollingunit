@@ -19,7 +19,6 @@ use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\LocationController;
-use App\Http\Controllers\PollingUnitController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ActivityController;
 
@@ -36,7 +35,7 @@ Route::post('/contact-us', [ContactUsController::class, 'submit'])->name('contac
 // Routes for dynamic form fields
 Route::get('/get-senatorial-districts/{state}', [LocationController::class, 'getSenatorialDistricts']);
 Route::get('/get-federal-constituencies/{district}', [LocationController::class, 'getFederalConstituencies']);
-Route::get('/get-lgas/{constituency}', [LocationController::class, 'getLGAs']);
+Route::get('/get-lgas/{constituency}', [LocationController::class, 'getLgas']);
 Route::get('/get-wards/{lga}', [LocationController::class, 'getWards']);
 Route::get('/get-polling-units/{ward}', [LocationController::class, 'getPollingUnits']);
 
@@ -53,27 +52,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Route to display the logged-in page
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
-
-// Ensure homepage or landing page route is defined
-Route::get('/landing', function () {
-    return view('landing');
-});
-
-// Services section and nav links
-Route::get('/election-coordination', function () {
-    return view('election-coordination');
-});
-Route::get('/polling-unit-management', function () {
-    return view('polling-unit-management');
-});
-Route::get('/fundraising', function () {
-    return view('fundraising');
-});
-
-// Ensure users are directed to the dashboard when logged in
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [PollingUnitController::class, 'index'])->name('dashboard');
 
     Route::get('/tables', function () {
         return view('console.tables');
@@ -118,81 +96,52 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('posts', PostsController::class);
     Route::resource('messages', MessagesController::class);
+
+    // Route for the political connection page
+    Route::get('/political-connection', [PoliticalConnectionController::class, 'index'])->name('political.connection');
+
+    // Route for the photos page
+    Route::get('/photos', function () {
+        return view('console.photos');
+    })->name('photos');
+
+    // Route for the connections page
+    Route::get('/connections', function () {
+        return view('console.connections');
+    })->name('connections');
+
+    // Route for the groups page
+    Route::get('/groups', function () {
+        return view('console.groups');
+    })->name('groups');
+
+    // Route to datainput
+    Route::get('/datainput', [DataInputController::class, 'show'])->name('datainput');
+
+    // Polling Unit Input - Use the DataInputController for storing data
+    Route::post('/polling-unit/store', [DataInputController::class, 'store'])->name('polling-unit.store');
+
+    // User Poll Creation
+    Route::get('/create-poll', [PollController::class, 'create'])->name('poll.create');
+    Route::post('/create-poll', [PollController::class, 'store'])->name('poll.store');
+
+    // Poll Voting Route
+    Route::post('/polls/{poll}/vote', [PollController::class, 'vote'])->name('poll.vote');
+
+    // Route to view the generated poll page
+    Route::get('/polls/view/{fileName}', [PollController::class, 'viewPoll'])->name('poll.view');
+
+    // Route to vote count
+    Route::get('/polls/{id}/votes', [PollController::class, 'showVotes'])->name('poll.votes');
+
+    // Route to manage polls
+    Route::get('/view-page', [PollController::class, 'manage'])->name('poll.manage');
+
+    // Route for displaying user activities
+    Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
 });
 
 // Email Verification Routes
 Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
-
-// Logout Route
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-// Route to change last name once
-Route::middleware(['auth'])->group(function () {
-    Route::get('profile/settings', [ProfileController::class, 'edit'])->name('profile.settings');
-    Route::put('profile/update', [ProfileController::class, 'update'])->name('profile.update.once');
-});
-
-// Route to show the profile settings
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile/settings', [ProfileController::class, 'edit'])->name('profile.settings.edit');
-    Route::put('/profile/settings', [ProfileController::class, 'update'])->name('profile.settings.update');
-
-    // Route to show the user's profile
-    Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show');
-});
-
-// Route for the political connection page
-Route::middleware(['auth'])->group(function () {
-    Route::get('/political-connection', [PoliticalConnectionController::class, 'index'])->name('political.connection');
-});
-
-// Route for the photos page
-Route::middleware(['auth'])->group(function () {
-    Route::get('/photos', function () {
-        return view('console.photos');
-    })->name('photos');
-});
-
-// Route for the connections page
-Route::middleware(['auth'])->group(function () {
-    Route::get('/connections', function () {
-        return view('console.connections');
-    })->name('connections');
-});
-
-// Route for the groups page
-Route::middleware(['auth'])->group(function () {
-    Route::get('/groups', function () {
-        return view('console.groups');
-    })->name('groups');
-});
-
-// Route to datainput
-Route::get('/datainput', [DataInputController::class, 'show'])->name('datainput');
-
-// Polling Unit Input - Use the DataInputController for storing data
-Route::post('/polling-unit/store', [DataInputController::class, 'store'])->name('polling-unit.store');
-// User Poll Creation
-Route::get('/create-poll', [PollController::class, 'create'])->name('poll.create');
-Route::post('/create-poll', [PollController::class, 'store'])->name('poll.store');
-
-// Poll Voting Route
-Route::post('/polls/{poll}/vote', [PollController::class, 'vote'])->name('poll.vote');
-
-// Route to view the generated poll page
-Route::get('/polls/view/{fileName}', [PollController::class, 'viewPoll'])->name('poll.view');
-
-// Route to vote count
-Route::get('/polls/{id}/votes', [PollController::class, 'showVotes'])->name('poll.votes');
-
-// Route to manage polls
-Route::middleware(['auth'])->group(function () {
-    Route::get('/view-page', [PollController::class, 'manage'])->name('poll.manage');
-});
-
-// Route for displaying user activities
-Route::middleware(['auth'])->group(function () {
-    Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
-});

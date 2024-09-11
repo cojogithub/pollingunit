@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class DataInputController extends Controller
 {
+    public function show()
+    {
+        // Return the data input form view
+        return view('console.datainput');
+    }
+
     public function store(Request $request)
     {
         // Validate the incoming request data
@@ -19,25 +25,28 @@ class DataInputController extends Controller
             'election_result' => 'nullable|string',
         ]);
 
+        // Prepare the data to be updated or created
+        $dataToSave = [
+            'registered_voters' => $request->input('registered_voters'),
+            'accredited_voters' => $request->input('accredited_voters'),
+            'void_votes' => $request->input('void_votes'),
+            'election_result' => $request->input('election_result'),
+        ];
+
+        // Remove keys with null values to avoid overwriting with nulls
+        $dataToSave = array_filter($dataToSave, function ($value) {
+            return !is_null($value);
+        });
+
         // Get the existing data, if any
         $pollingUnitData = PollingUnitData::latest()->first();
 
         if ($pollingUnitData) {
             // Update the existing data with new values or keep old ones if null
-            $pollingUnitData->update([
-                'registered_voters' => $request->filled('registered_voters') ? $request->input('registered_voters') : $pollingUnitData->registered_voters,
-                'accredited_voters' => $request->filled('accredited_voters') ? $request->input('accredited_voters') : $pollingUnitData->accredited_voters,
-                'void_votes' => $request->filled('void_votes') ? $request->input('void_votes') : $pollingUnitData->void_votes,
-                'election_result' => $request->filled('election_result') ? $request->input('election_result') : $pollingUnitData->election_result,
-            ]);
+            $pollingUnitData->update($dataToSave);
         } else {
             // Create a new entry if none exists
-            PollingUnitData::create([
-                'registered_voters' => $request->input('registered_voters'),
-                'accredited_voters' => $request->input('accredited_voters'),
-                'void_votes' => $request->input('void_votes'),
-                'election_result' => $request->input('election_result'),
-            ]);
+            PollingUnitData::create($dataToSave);
         }
 
         // Log the activity
@@ -45,21 +54,11 @@ class DataInputController extends Controller
             UserActivity::create([
                 'user_id' => Auth::id(),
                 'activity_type' => 'Data Input',
-                'activity_description' => 'Polling Unit data added',
+                'activity_description' => 'Polling Unit data added or updated',
             ]);
-        } else {
-            // Handle the case where the user is not authenticated
-            // You might log this or handle it in another way
         }
 
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Polling Unit data has been saved successfully.');
-    }
-
-    public function show()
-    {
-        // Example of fetching and displaying data
-        $pollingUnitData = PollingUnitData::latest()->first();
-        return view('console.datainput', compact('pollingUnitData'));
+        // Redirect to the dashboard with a success message
+        return redirect()->route('dashboard')->with('success', 'Polling Unit data has been saved successfully.');
     }
 }

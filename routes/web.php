@@ -114,13 +114,14 @@ Route::middleware(['auth'])->group(function () {
 
     // Route for displaying user activities
     Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
+
+    // Route for DataInputController
+    Route::get('/datainput', [DataInputController::class, 'show'])->name('datainput.show');
+    Route::post('/datainput', [DataInputController::class, 'store'])->name('datainput.store');
+
+    // Route for PollingUnitController
+    Route::post('/polling-unit/store', [PollingUnitController::class, 'store'])->name('polling-unit.store');
 });
-
-// Route to datainput
-Route::get('/datainput', [DataInputController::class, 'show'])->name('datainput');
-
-// Polling Unit Input - Use the DataInputController for storing data
-Route::post('/polling-unit/store', [DataInputController::class, 'store'])->name('polling-unit.store');
 
 // User Poll Creation
 Route::get('/create-poll', [PollController::class, 'create'])->name('poll.create');
@@ -138,20 +139,9 @@ Route::get('/polls/{id}/votes', [PollController::class, 'showVotes'])->name('pol
 // Route to manage polls
 Route::get('/view-page', [PollController::class, 'manage'])->name('poll.manage');
 
-// Ensure homepage or landing page route is defined
-Route::get('/landing', function () {
-    return view('landing');
-});
+// Ensure correct paths to views
+Route::get('/polling-units', function () {
+    return view('console.polling-units');
+})->name('polling.units');
 
-// Services section and nav links
-Route::get('/election-coordination', function () {
-    return view('election-coordination');
-});
-Route::get('/polling-unit-management', function () {
-    return view('polling-unit-management');
-});
-Route::get('/fundraising', function () {
-    return view('fundraising');
-});
-
-
+Route::post('/polling-unit/store', [PollingUnitController::class, 'store'])->name('polling-unit.store');
