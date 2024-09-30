@@ -35,7 +35,7 @@
     <div class="formbold-main-wrapper">
         <div class="formbold-form-wrapper">
             <!-- Logo -->
-            <img src="{{ asset('storage/small-icon.ico') }}" alt="Logo" class="formbold-img">
+            <img src="{{ asset('images/small-icon.ico') }}" alt="Logo" class="formbold-img">
 
             <h1 style="text-align:center;color:#ffffff">POLLING UNIT</h1>
 
