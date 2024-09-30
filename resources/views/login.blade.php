@@ -34,11 +34,9 @@
 
     <div class="formbold-main-wrapper">
         <div class="formbold-form-wrapper">
-            <!-- Logo -->
-            <img src="{{ asset('storage/small-icon.ico') }}" alt="Logo" class="formbold-img">
-
+	    <!-- Logo -->
             <h1 style="text-align:center;color:#ffffff">POLLING UNIT</h1>
-
+            <img src="{{ asset('images/small-icon.ico') }}" alt="Logo" class="formbold-img">
             <form action="{{ route('login') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @if (session('success'))
