@@ -22,12 +22,26 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PollingUnitController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\SearchController;
 
 // Route to display the landing page
 Route::get('/', [LandingController::class, 'showLandingPage'])->name('landing.page');
 
 // Route to display the form
 Route::get('/form', [StateController::class, 'showForm'])->name('form.show');
+
+// Routes to pages in the Services drop-down menu
+Route::get('/election-coordination', function () {
+    return view('electioncoordination');
+})->name('election-coordination');
+
+Route::get('/polling-unit-management', function () {
+    return view('pollingunitmanagement');
+})->name('polling-unit-management');
+
+Route::get('/fundraising', function () {
+    return view('fundraising');
+})->name('fundraising');
 
 // Route to handle form submission
 Route::post('/form-submit', [StateController::class, 'submitForm'])->name('form.submit');
@@ -64,7 +78,7 @@ Route::middleware(['auth'])->group(function () {
         return view('console.forms');
     })->name('forms');
 
-    Route::get('/profile-settings', [ProfileController::class, 'edit'])->name('profile.settings');
+    Route::get('/profilesettings', [ProfileController::class, 'edit'])->name('profile.settings');
 
     // Social Controllers
     Route::get('auth/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('social.auth');
@@ -101,7 +115,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('messages', MessagesController::class);
 
     // Route for the political connection page
-    Route::get('/political-connection', [PoliticalConnectionController::class, 'index'])->name('political.connection');
+    Route::get('/politicalconnection', [PoliticalConnectionController::class, 'index'])->name('political.connection');
 
     // Route for the photos page
     Route::get('/photos', function () {
@@ -139,6 +153,9 @@ Route::post('/polls/{poll}/vote', [PollController::class, 'vote'])->name('poll.v
 // Route to view the generated poll page
 Route::get('/polls/view/{fileName}', [PollController::class, 'viewPoll'])->name('poll.view');
 
+// Route to view Poll Results
+Route::get('/poll-results', [PollController::class, 'results'])->name('poll.results');
+
 // Route to vote count
 Route::get('/polls/{id}/votes', [PollController::class, 'showVotes'])->name('poll.votes');
 
@@ -150,4 +167,5 @@ Route::get('/polling-units', function () {
     return view('console.polling-units');
 })->name('polling.units');
 
-Route::post('/polling-unit/store', [PollingUnitController::class, 'store'])->name('polling-unit.store');
+// Define the search route
+Route::get('/search', [SearchController::class, 'search'])->name('search');

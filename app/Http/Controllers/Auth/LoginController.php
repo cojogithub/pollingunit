@@ -42,6 +42,6 @@ class LoginController extends Controller
     protected function loggedOut(Request $request)
     {
         Log::info('User logged out', ['user' => $request->user()]);
-        return redirect('/landing');
+        return redirect('/');
     }
 }

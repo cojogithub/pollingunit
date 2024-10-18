@@ -36,4 +36,10 @@ app.component('example-component', ExampleComponent);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-app.mount('#app');
+// Ensure Vue only mounts if the #app element is available and after DOM content is fully loaded
+document.addEventListener('DOMContentLoaded', function () {
+    const appElement = document.getElementById('app');
+    if (appElement) {
+        //app.mount('#app');
+    }
+});
